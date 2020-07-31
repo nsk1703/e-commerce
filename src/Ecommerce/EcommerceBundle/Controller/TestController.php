@@ -7,10 +7,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class TestController extends Controller
 {
+
+    public function testFormAction()
+    {
+        die('ici');
+    }
+
+
     public function ajoutAction()
     {
 //        $product = new Products();
-        $entityManager = $this->getDoctrine()->getManager();
+//        $entityManager = $this->getDoctrine()->getManager();
 
 //        $product->setName('hp-pavillon-g6');
 //        $product->setPrice('238.461');
@@ -34,11 +41,11 @@ class TestController extends Controller
 //        $entityManager->persist($product);
 //        $entityManager->flush();
 
-        $products = $entityManager->getRepository('EcommerceEcommerceBundle:Products')->findAll();
+//        $products = $entityManager->getRepository('EcommerceEcommerceBundle:Products')->findAll();
 //        var_dump($products);
 //        die();
-        return $this->render('@EcommerceEcommerce/Default/test.html.twig', array(
-                    'products' => $products
-        ));
+//        return $this->render('@EcommerceEcommerce/Default/test.html.twig', array(
+//                    'products' => $products
+//        ));
     }
 }

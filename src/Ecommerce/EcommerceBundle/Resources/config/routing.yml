@@ -24,4 +24,4 @@ product_info:
 
 test:
     path:     /test
-    defaults: { _controller: EcommerceEcommerceBundle:Test:ajout }
+    defaults: { _controller: EcommerceEcommerceBundle:Test:testForm }
