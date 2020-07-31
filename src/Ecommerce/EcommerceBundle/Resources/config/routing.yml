@@ -4,7 +4,7 @@
 
 list_product:
     path:     /
-    defaults: { _controller: EcommerceEcommerceBundle:Product:listProduct }
+    defaults: { _controller: EcommerceEcommerceBundle:Products:listProduct }
 
 add_basket:
     path:     /addBasket
@@ -20,4 +20,8 @@ validate:
 
 product_info:
     path:     /productInfo
-    defaults: { _controller: EcommerceEcommerceBundle:Product:productInfo }
+    defaults: { _controller: EcommerceEcommerceBundle:Products:productInfo }
+
+test:
+    path:     /test
+    defaults: { _controller: EcommerceEcommerceBundle:Test:ajout }

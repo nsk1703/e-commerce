@@ -2,14 +2,14 @@
 
 namespace Ecommerce\EcommerceBundle\Controller;
 
-use Ecommerce\EcommerceBundle\Entity\Product;
+use Ecommerce\EcommerceBundle\Entity\Products;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class TestController extends Controller
 {
     public function ajoutAction()
     {
-//        $product = new Product();
+//        $product = new Products();
         $entityManager = $this->getDoctrine()->getManager();
 
 //        $product->setName('hp-pavillon-g6');
@@ -34,8 +34,9 @@ class TestController extends Controller
 //        $entityManager->persist($product);
 //        $entityManager->flush();
 
-        $products = $entityManager->getRepository('EcommerceEcommerceBundle:Product')->findAll();
-
+        $products = $entityManager->getRepository('EcommerceEcommerceBundle:Products')->findAll();
+//        var_dump($products);
+//        die();
         return $this->render('@EcommerceEcommerce/Default/test.html.twig', array(
                     'products' => $products
         ));
