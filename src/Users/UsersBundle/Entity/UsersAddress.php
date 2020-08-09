@@ -1,6 +1,6 @@
 <?php
 
-namespace Ecommerce\EcommerceBundle\Entity;
+namespace Users\UsersBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * UsersAddress
  *
  * @ORM\Table(name="users_address")
- * @ORM\Entity(repositoryClass="Ecommerce\EcommerceBundle\Repository\UsersAddressRepository")
+ * @ORM\Entity(repositoryClass="Users\UsersBundle\Repository\UsersAddressRepository")
  */
 class UsersAddress
 {

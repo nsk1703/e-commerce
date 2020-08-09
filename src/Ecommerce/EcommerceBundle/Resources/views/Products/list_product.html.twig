@@ -6,7 +6,6 @@
 
             <div class="span3">
                 {% include 'layout/navigation.html.twig' %}
-                {% include 'layout/user.html.twig' %}
             </div>
             <div class="span9">
 
@@ -18,8 +17,8 @@
                                 <div class="caption">
                                     <h4>Thumbnail label</h4>
                                     <p>100,00 €</p>
-                                    <a class="btn btn-primary" href="{{ path('product_info') }}">Plus d'infos</a>
-                                    <a class="btn btn-success" href="{{ path('add_basket') }}">Ajouter au panier</a>
+                                    <a class="btn btn-primary" href="{{ path('product_info') }}">More Infos</a>
+                                    <a class="btn btn-success" href="{{ path('add_basket') }}">Add in Basket</a>
                                 </div>
                             </div>
                         </li>
@@ -28,13 +27,13 @@
 
                 <div class="pagination">
                     <ul>
-                        <li class="disabled"><span>Précédent</span></li>
+                        <li class="disabled"><span>Previous</span></li>
                         <li class="disabled"><span>1</span></li>
                         <li><a href="#">2</a></li>
                         <li><a href="#">3</a></li>
                         <li><a href="#">4</a></li>
                         <li><a href="#">5</a></li>
-                        <li><a href="#">Suivant</a></li>
+                        <li><a href="#">Next</a></li>
                     </ul>
                 </div>
             </div>

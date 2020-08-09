@@ -1,6 +1,6 @@
 <?php
 
-namespace Ecommerce\EcommerceBundle\Repository;
+namespace Users\UsersBundle\Repository;
 
 /**
  * UsersAddressRepository

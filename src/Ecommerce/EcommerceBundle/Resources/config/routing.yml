@@ -21,7 +21,3 @@ validate:
 product_info:
     path:     /productInfo
     defaults: { _controller: EcommerceEcommerceBundle:Products:productInfo }
-
-test:
-    path:     /test
-    defaults: { _controller: EcommerceEcommerceBundle:Test:testForm }

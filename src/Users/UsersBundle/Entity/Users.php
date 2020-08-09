@@ -33,7 +33,7 @@ class Users extends BaseUser
     private $commandes;
 
     /**
-     * @ORM\OneToMany(targetEntity="Ecommerce\EcommerceBundle\Entity\UsersAddress", mappedBy="users", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="Users\UsersBundle\Entity\UsersAddress", mappedBy="users", cascade={"remove"})
      * @ORM\JoinColumn(nullable=true)
      *
      */
@@ -78,11 +78,11 @@ class Users extends BaseUser
     /**
      * Add userAddress.
      *
-     * @param \Ecommerce\EcommerceBundle\Entity\UsersAddress $userAddress
+     * @param \Users\UsersBundle\Entity\UsersAddress $userAddress
      *
      * @return Users
      */
-    public function addUserAddress(\Ecommerce\EcommerceBundle\Entity\UsersAddress $userAddress)
+    public function addUserAddress(\Users\UsersBundle\Entity\UsersAddress $userAddress)
     {
         $this->userAddress[] = $userAddress;
 
@@ -92,11 +92,11 @@ class Users extends BaseUser
     /**
      * Remove userAddress.
      *
-     * @param \Ecommerce\EcommerceBundle\Entity\UsersAddress $userAddress
+     * @param \Users\UsersBundle\Entity\UsersAddress $userAddress
      *
      * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removeUserAddress(\Ecommerce\EcommerceBundle\Entity\UsersAddress $userAddress)
+    public function removeUserAddress(\Users\UsersBundle\Entity\UsersAddress $userAddress)
     {
         return $this->userAddress->removeElement($userAddress);
     }
