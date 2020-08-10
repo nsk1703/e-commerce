@@ -5,7 +5,7 @@ namespace Pages\PagesBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Pages
+ * pages
  *
  * @ORM\Table(name="pages")
  * @ORM\Entity(repositoryClass="Pages\PagesBundle\Repository\PagesRepository")
@@ -31,7 +31,7 @@ class Pages
     /**
      * @var string
      *
-     * @ORM\Column(name="content", type="string", length=255)
+     * @ORM\Column(name="content", type="text", length=255)
      */
     private $content;
 

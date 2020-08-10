@@ -1,6 +1,6 @@
 #ecommerce_ecommerce_homepage:
 #    path:     /
-#    defaults: { _controller: EcommerceEcommerceBundle:Pages:index }
+#    defaults: { _controller: EcommerceEcommerceBundle:pages:index }
 
 list_product:
     path:     /

@@ -13,8 +13,8 @@ class DataFixtures extends Fixture
     {
         $page1 = new Pages();
         $page1->setTitle('CGV');
-        $page1->setContent('
-                  <div class="row">
+        $page1->setContent(
+                  '<div class="row">
                        <h4>Item brand and Category</h4>
                        <h5>AB29837 Item Model</h5>
                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque officiis corrupti non quibusdam expedita. Consectetur atque voluptate deleniti ratione odit sed, ullam consequatur laboriosam, repellendus dolor laudantium pariatur. Unde, beatae.</p>
@@ -28,10 +28,11 @@ class DataFixtures extends Fixture
                        <h4>Item brand and Category</h4>
                        <h5>AB29837 Item Model</h5>
                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque officiis corrupti non quibusdam expedita. Consectetur atque voluptate deleniti ratione odit sed, ullam consequatur laboriosam, repellendus dolor laudantium pariatur. Unde, beatae.</p>
-                   </div>');
-        $manager->persist($page);
+                   </div>'
+        );
+        $manager->persist($page1);
 
-        
+
         $page2 = new Pages();
         $page2->setTitle('Mentions legales');
         $page2->setContent('

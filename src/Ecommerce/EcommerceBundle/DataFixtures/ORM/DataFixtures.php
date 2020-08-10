@@ -160,28 +160,28 @@ class DataFixtures extends Fixture
         $manager->persist($product6);
 //        Fixture de la table Products -Fin-
 
-//        Fixture de la table Commande -Debut-
-        $commande1 = new Commande();
-        $commande1->setValidate('1');
-        $commande1->setDate(new \DateTime());
-        $commande1->setReference('1');
-        $commande1->setProducts(array('0' => array('1' => '2'),
-                                      '1' => array('2' => '1'),
-                                      '2' => array('4' => '3')
-                                ));
-        $commande1->setUsers($this->getReference('user1'));
-        $manager->persist($commande1);
-
-        $commande2 = new Commande();
-        $commande2->setValidate('1');
-        $commande2->setDate(new \DateTime());
-        $commande2->setReference('2');
-        $commande2->setProducts(array('0' => array('1' => '2'),
-                                      '1' => array('2' => '1'),
-                                      '2' => array('4' => '3')
-                                ));
-        $commande2->setUsers($this->getReference('user3'));
-        $manager->persist($commande2);
+////        Fixture de la table Commande -Debut-
+//        $commande1 = new Commande();
+//        $commande1->setValidate('1');
+//        $commande1->setDate(new \DateTime());
+//        $commande1->setReference('1');
+//        $commande1->setProducts(array('0' => array('1' => '2'),
+//                                      '1' => array('2' => '1'),
+//                                      '2' => array('4' => '3')
+//                                ));
+//        $commande1->setUsers($this->getReference('user1'));
+//        $manager->persist($commande1);
+//
+//        $commande2 = new Commande();
+//        $commande2->setValidate('1');
+//        $commande2->setDate(new \DateTime());
+//        $commande2->setReference('2');
+//        $commande2->setProducts(array('0' => array('1' => '2'),
+//                                      '1' => array('2' => '1'),
+//                                      '2' => array('4' => '3')
+//                                ));
+//        $commande2->setUsers($this->getReference('user3'));
+//        $manager->persist($commande2);
 
 
         $manager->flush();

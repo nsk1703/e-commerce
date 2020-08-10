@@ -6,8 +6,24 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class PagesController extends Controller
 {
+    public function menuAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('PagesPagesBundle:Pages');
+        $pages = $repository->findAll();
+
+        return $this->render('@PagesPages/pages/modulesUsed/menu.html.twig', array(
+            'pages' => $pages
+        ));
+    }
+
     public function pagesAction($id)
     {
-        return $this->render('@PagesPages/Pages/pages.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('PagesPagesBundle:Pages');
+        $page = $repository->find($id);
+        return $this->render('@PagesPages/pages/layout/pages.html.twig', array(
+            'page' => $page
+        ));
     }
 }

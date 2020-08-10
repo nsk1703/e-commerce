@@ -39,8 +39,7 @@
             <div class="span4 offset1">
                 <h4>Informations</h4>
                 <ul class="nav nav-stacked">
-                    <li><a href="{{ path('pages', {'id' : 1}) }}">CGV</a>
-                    <li><a href="{{ path('pages', {'id' : 2}) }}">Mentions legacy</a>
+                    {{ render(controller('PagesPagesBundle:Pages:menu')) }}
                 </ul>
             </div>
 
