@@ -22,6 +22,12 @@ class PagesController extends Controller
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('PagesPagesBundle:Pages');
         $page = $repository->find($id);
+<<<<<<< HEAD
+=======
+
+        if(!$page) throw $this->createNotFoundException('La page n\'existe pas');
+
+>>>>>>> Site dynamique
         return $this->render('@PagesPages/pages/layout/pages.html.twig', array(
             'page' => $page
         ));

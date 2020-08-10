@@ -19,5 +19,9 @@ validate:
     defaults: { _controller: EcommerceEcommerceBundle:Basket:validate }
 
 product_info:
-    path:     /productInfo
+    path:     /productInfo/{id}
     defaults: { _controller: EcommerceEcommerceBundle:Products:productInfo }
+
+categoriesProducts:
+    path:     /category/{category}
+    defaults: { _controller: EcommerceEcommerceBundle:Products:category }

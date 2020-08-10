@@ -17,42 +17,42 @@ class DataFixtures extends Fixture
     {
 //        Fixture de la table Media -Debut-
         $media1 = new Media();
-        $media1->setPath('uploads/Dell.jpg');
+        $media1->setPath('/uploads/Dell.jpg');
         $media1->setAlt('Dell Inspiron');
         $manager->persist($media1);
 
         $media2 = new Media();
-        $media2->setPath('uploads/hp1.jpg');
+        $media2->setPath('/uploads/hp1.jpg');
         $media2->setAlt('hp pavillon');
         $manager->persist($media2);
 
         $media3 = new Media();
-        $media3->setPath('uploads/Toshiba.jpg');
+        $media3->setPath('/uploads/Toshiba.jpg');
         $media3->setAlt('Toshiba express');
         $manager->persist($media3);
 
         $media4 = new Media();
-        $media4->setPath('uploads/Asus.jpg');
+        $media4->setPath('/uploads/Asus.jpg');
         $media4->setAlt('Asus Cordo');
         $manager->persist($media4);
 
         $media5 = new Media();
-        $media5->setPath('uploads/Compaq.jpg');
+        $media5->setPath('/uploads/Compaq.jpg');
         $media5->setAlt('Compaq desert');
         $manager->persist($media5);
 
         $media6 = new Media();
-        $media6->setPath('uploads/Toshiba1.jpg');
+        $media6->setPath('/uploads/Toshiba1.jpg');
         $media6->setAlt('Toshiba monster');
         $manager->persist($media6);
 
         $media7 = new Media();
-        $media7->setPath('uploads/Acer.jpg');
+        $media7->setPath('/uploads/Acer.jpg');
         $media7->setAlt('Acer probook');
         $manager->persist($media7);
 
         $media8 = new Media();
-        $media8->setPath('uploads/HP.jpg');
+        $media8->setPath('/uploads/HP.jpg');
         $media8->setAlt('hp thinkpad');
         $manager->persist($media8);
 
