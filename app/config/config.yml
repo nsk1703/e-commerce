@@ -37,6 +37,11 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    globals:
+        phone: 6 90 71 09 15
+        fax: 6 94 99 12 97
+        localisation: Douala-Koumassi
+        Enterprise: HitechElectronics
 
 # Doctrine Configuration
 doctrine:

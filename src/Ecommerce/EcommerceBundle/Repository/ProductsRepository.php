@@ -15,8 +15,24 @@ class ProductsRepository extends \Doctrine\ORM\EntityRepository
         $queryBuilder = $this->createQueryBuilder('p')
                              ->select('p')
                              ->where('p.category = :category')
+                             ->andWhere('p.available = 1')
                              ->orderBy('p.id')
                              ->setParameter('category', $category);
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+//    select * from product p where p.name = :tag and p.available = 1
+//    orderBy p.id;
+    public function search($tag)
+    {
+        $queryBuilder = $this->createQueryBuilder('p')
+                             ->select('p')
+                             ->where('p.name like :tag')
+                             ->andWhere('p.available = 1')
+                             ->orderBy('p.id')
+                             ->setParameter('tag', $tag);
+
         return $queryBuilder->getQuery()->getResult();
     }
 }

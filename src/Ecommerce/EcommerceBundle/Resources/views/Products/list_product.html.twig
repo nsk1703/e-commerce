@@ -5,11 +5,13 @@
         <div class="row">
 
             <div class="span3">
+                {# Appel de layout navigation dans les categories et de module de connexion d'utilisateur #}
                 {% include 'layout/navigation.html.twig' %}
                 {% include 'UsersUsersBundle:Default/modulesUsed:usersAction.html.twig' %}
             </div>
             <div class="span9">
-
+                {# Si pas de produit alos aucun produit trouve #}
+            {% if(products|length != 0) %}
                 <ul class="thumbnails">
                     {% for product in products %}
                         <li class="span3">
@@ -37,6 +39,9 @@
                         <li><a href="#">Next</a></li>
                     </ul>
                 </div>
+            {% else %}
+                Not found products
+            {% endif %}
             </div>
         </div>
     </div>

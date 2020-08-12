@@ -1,0 +1,8 @@
+{# Affichage du formulaire: input=search, button=Search
+ le path de l'action renvoit vers la route dont le nom est en parametre
+ qui est contenu dans le controller ProductsController et qui effectue le traitement du formulaire #}
+
+<form action="{{ path('searchProducts') }}" method="POST" class="navbar-form form-search pull-right">
+    {{ form_widget(form.search) }}
+    {{ form_widget(form.Search) }}
+</form>

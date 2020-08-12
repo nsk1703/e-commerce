@@ -25,3 +25,7 @@ product_info:
 categoriesProducts:
     path:     /category/{category}
     defaults: { _controller: EcommerceEcommerceBundle:Products:category }
+
+searchProducts:
+    path:     /search
+    defaults: { _controller: EcommerceEcommerceBundle:Products:searchResult}

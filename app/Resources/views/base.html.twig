@@ -21,10 +21,7 @@
             </button>
             <a class="brand" href="{{ path('list_product') }}">HitechElectronics</a>
             <div class="nav-collapse collapse">
-                <form class="navbar-form form-search pull-right">
-                    <input id="Search" name="Search" type="text" class="input-medium search-query">
-                    <button type="submit" class="btn">Search</button>
-                </form>
+                {{ render(controller('EcommerceEcommerceBundle:Products:search')) }}
             </div>
         </div>
     </div>
@@ -45,19 +42,19 @@
 
             <div class="span4">
                 <h4>Our Local</h4>
-                <p><i class="icon-map-marker"></i>&nbsp;Douala Koumassi</p>
+                <p><i class="icon-map-marker"></i>&nbsp;{{ localisation }}</p>
             </div>
 
             <div class="span2">
                 <h4>Contact Us</h4>
-                <p><i class="icon-phone"></i>&nbsp;Tel: 6 90 71 09 15</p>
-                <p><i class="icon-print"></i>&nbsp;Fax: 6 94 99 12 97</p>
+                <p><i class="icon-phone"></i>&nbsp;Tel: {{ phone }}</p>
+                <p><i class="icon-print"></i>&nbsp;Fax: {{ fax }}</p>
             </div>
         </div>
 
         <div class="row">
-            <div class="span4">
-                <p>&copy; Copyright 2020 - HitechElectronics</p>
+            <div class="text-center">
+                <p>&copy; Copyright {{ "now"|date('Y') }} - {{ Enterprise }}</p>
             </div>
         </div>
     </div>
