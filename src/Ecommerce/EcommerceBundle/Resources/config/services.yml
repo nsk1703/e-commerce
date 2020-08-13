@@ -1,4 +1,6 @@
+# Declaration de notre extension twig en Service pour la rendre utilisable
 services:
-#    ecommerce_ecommerce.example:
-#        class: Ecommerce\EcommerceBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    tva:
+      class: Ecommerce\EcommerceBundle\Twig\Extension\TvaExtension
+      tags:
+        - { name: twig.extension }

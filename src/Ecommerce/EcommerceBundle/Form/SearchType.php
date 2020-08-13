@@ -17,7 +17,7 @@ class SearchType extends AbstractType
     {
         $builder->setAction($options['action'])
                 ->add('search', TextType::class, array(
-                    'attr' =>array('class' => 'input-medium search-query',
+                    'attr' => array('class' => 'input-medium search-query',
                                    'placeholder' => 'search your product')
                 ))
                 ->add('Search', SubmitType::class, array(

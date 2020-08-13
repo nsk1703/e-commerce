@@ -7,7 +7,7 @@ list_product:
     defaults: { _controller: EcommerceEcommerceBundle:Products:listProduct }
 
 add_basket:
-    path:     /addBasket
+    path:     /Basket
     defaults: { _controller: EcommerceEcommerceBundle:Basket:addBasket }
 
 deliver:

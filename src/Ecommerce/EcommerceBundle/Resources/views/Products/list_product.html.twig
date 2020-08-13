@@ -7,7 +7,11 @@
             <div class="span3">
                 {# Appel de layout navigation dans les categories et de module de connexion d'utilisateur #}
                 {% include 'layout/navigation.html.twig' %}
-                {% include 'UsersUsersBundle:Default/modulesUsed:usersAction.html.twig' %}
+                {% if(is_granted('IS_AUTHENTICATED_FULLY')) %}
+                    {% include 'UsersUsersBundle:Default/modulesUsed:usersConnected.html.twig' %}
+                {% else %}
+                    {% include 'UsersUsersBundle:Default/modulesUsed:usersAction.html.twig' %}
+                {% endif %}
             </div>
             <div class="span9">
                 {# Si pas de produit alos aucun produit trouve #}
@@ -19,8 +23,8 @@
                                 <img src="{{ product.image.path }}" alt="DevAndClick" width="300" height="150">
                                 <div class="caption">
                                     <h4>{{ product.name }}</h4>
-                                    <p>{{ product.price }} FCFA</p>
-                                    <a class="btn btn-primary" href="{{ path('product_info', { 'id' : product.id }) }}">More Infos</a>
+                                    <p>{{ product.price|tva(product.tva.multiplicate) }} FCFA</p>
+                                    <a class="btn btn-primary" href="{{ path('product_info', { 'id' : product.id }) }}">More Details</a>
                                     <a class="btn btn-success" href="{{ path('add_basket') }}">Add in Basket</a>
                                 </div>
                             </div>
