@@ -9,26 +9,45 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ProductsController extends Controller
 {
-    public function listProductAction()
+    public function listProductAction(Request $request)
     {
+        $session = $request->getSession();
         $em = $this->getDoctrine()->getManager();
+
         $repository = $em->getRepository('EcommerceEcommerceBundle:Products');
         $products = $repository->findBy(array('available' => 1));
+
+        if ($session->has('basket')){
+            $basket = $session->get('basket');
+        }else{
+            $basket = false;
+        }
+
         return $this->render('@EcommerceEcommerce/Products/list_product.html.twig', array(
-            'products' => $products
+            'products' => $products,
+            'basket' => $basket
         ));
     }
 
-    public function productInfoAction($id)
+    public function productInfoAction(Request $request, $id)
     {
+        $session = $request->getSession();
         $em = $this->getDoctrine()->getManager();
+
         $repository = $em->getRepository('EcommerceEcommerceBundle:Products');
         $product = $repository->find($id);
 
         if(!$product) throw $this->createNotFoundException('La page n\'existe pas');
 
+        if ($session->has('basket')){
+            $basket = $session->get('basket');
+        }else{
+            $basket = false;
+        }
+
         return $this->render('@EcommerceEcommerce/Products/product_info.html.twig', array(
-            'product' => $product
+            'product' => $product,
+            'basket' => $basket
         ));
     }
 

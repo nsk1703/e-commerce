@@ -12,6 +12,7 @@
                 {% else %}
                     {% include 'UsersUsersBundle:Default/modulesUsed:usersAction.html.twig' %}
                 {% endif %}
+                {{ render(controller('EcommerceEcommerceBundle:Basket:menu')) }}
             </div>
             <div class="span9">
                 {# Si pas de produit alos aucun produit trouve #}
@@ -20,12 +21,14 @@
                     {% for product in products %}
                         <li class="span3">
                             <div class="thumbnail">
-                                <img src="{{ product.image.path }}" alt="DevAndClick" width="300" height="150">
+                                <img src="{{ product.image.path }}" alt="{{ product.name }}" width="300" height="150">
                                 <div class="caption">
                                     <h4>{{ product.name }}</h4>
                                     <p>{{ product.price|tva(product.tva.multiplicate) }} FCFA</p>
                                     <a class="btn btn-primary" href="{{ path('product_info', { 'id' : product.id }) }}">More Details</a>
-                                    <a class="btn btn-success" href="{{ path('add_basket') }}">Add in Basket</a>
+                                    {% if(basket[product.id] is not defined) %}
+                                    <a class="btn btn-success" href="{{ path('add_basket', { 'id' : product.id }) }}">Add in Basket</a>
+                                    {% endif %}
                                 </div>
                             </div>
                         </li>

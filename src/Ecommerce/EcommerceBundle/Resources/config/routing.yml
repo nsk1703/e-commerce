@@ -7,8 +7,16 @@ list_product:
     defaults: { _controller: EcommerceEcommerceBundle:Products:listProduct }
 
 add_basket:
-    path:     /Basket
+    path:     /addBasket/{id}
     defaults: { _controller: EcommerceEcommerceBundle:Basket:addBasket }
+
+delete_basket:
+    path:     /deleteBasket/{id}
+    defaults: { _controller: EcommerceEcommerceBundle:Basket:deleteBasket }
+
+basket:
+    path:     /basket
+    defaults: { _controller: EcommerceEcommerceBundle:Basket:basket }
 
 deliver:
     path:     /deliver

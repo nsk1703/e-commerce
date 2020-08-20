@@ -10,6 +10,15 @@ namespace Ecommerce\EcommerceBundle\Repository;
  */
 class ProductsRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findArray($array)
+    {
+        $queryBuilder = $this->createQueryBuilder('p')
+                             ->select('p')
+                             ->where('p.id IN (:array)')
+                             ->setParameter('array', $array);
+        return $queryBuilder->getQuery()->getResult();
+    }
+
     public function byCategory($category)
     {
         $queryBuilder = $this->createQueryBuilder('p')

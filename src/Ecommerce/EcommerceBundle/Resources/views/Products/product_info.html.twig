@@ -9,6 +9,7 @@
 
             <div class="span3">
                 {% include 'layout/navigation.html.twig' %}
+                {{ render(controller('EcommerceEcommerceBundle:Basket:menu')) }}
             </div>
 
             <div class="span9">
@@ -22,15 +23,22 @@
                         <h5>{{ product.category.nom }}</h5>
                         <p>{{ product.description }}</p>
                         <h4>{{ product.price|tva(product.tva.multiplicate) }} FCFA</h4>
-                        <form action="{{ path('add_basket') }}">
-                            <select name="qte" class="span1">
-                                <option>1</option>
-                            </select>
+                        {% if(basket[product.id] is not defined) %}
+                        <form action="{{ path('add_basket', { 'id' : product.id }) }}" method="GET">
+                            <label>
+                                <select name="qty" class="span1">
+                                    {% for i in 1..10 %}
+                                        <option value="{{ i }}">{{ i }}</option>
+                                    {%  endfor %}
+                                </select>
+                            </label>
                             <div>
                                 <button class="btn btn-primary">Add in Basket</button>
                             </div>
                         </form>
-
+                        {% else %}
+                            This Product is already in your basket
+                        {% endif %}
                     </div>
                 </div>
             </div>
