@@ -9,3 +9,9 @@ services:
       class: Ecommerce\EcommerceBundle\Twig\Extension\MontantTvaExtension
       tags:
         - { name: twig.extension }
+
+    redirection_listener:
+      class: Ecommerce\EcommerceBundle\EventListener\RedirectionListener
+      arguments: ['@service_container', '@session']
+      tags:
+        - { name: 'kernel.event_listener', event: 'kernel.request', method: 'onKernelRequest' }

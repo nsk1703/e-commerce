@@ -2,6 +2,7 @@
 
 namespace Ecommerce\EcommerceBundle\Controller;
 
+use Ecommerce\EcommerceBundle\Entity\Categories;
 use Ecommerce\EcommerceBundle\Form\SearchType;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -9,14 +10,22 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ProductsController extends Controller
 {
-    public function listProductAction(Request $request)
+    public function listProductAction(Request $request, Categories $category = null)
     {
+//        Initialisation de la variable SESSION et de l'entityManager
         $session = $request->getSession();
         $em = $this->getDoctrine()->getManager();
-
         $repository = $em->getRepository('EcommerceEcommerceBundle:Products');
-        $products = $repository->findBy(array('available' => 1));
 
+//        Selection des produits par categories de produits et selon la disponibilite du produit
+//        Si la categorie n'est pas null, alors on recupere les produits par categories
+//        sinon par disponibilite
+        if ($category != null)
+            $products = $repository->byCategory($category);
+        else
+            $products = $repository->findBy(array('available' => 1));
+
+//        Recuperation de la variable session[basket]
         if ($session->has('basket')){
             $basket = $session->get('basket');
         }else{
@@ -31,12 +40,15 @@ class ProductsController extends Controller
 
     public function productInfoAction(Request $request, $id)
     {
+//        Initialisation de la variable SESSION et de l'entityManeger
         $session = $request->getSession();
         $em = $this->getDoctrine()->getManager();
 
+//        Recuperation des informations d'un produit
         $repository = $em->getRepository('EcommerceEcommerceBundle:Products');
         $product = $repository->find($id);
 
+//        Si le produit n'existe pas alors la pages d'unformations n'existera pas
         if(!$product) throw $this->createNotFoundException('La page n\'existe pas');
 
         if ($session->has('basket')){
@@ -48,21 +60,6 @@ class ProductsController extends Controller
         return $this->render('@EcommerceEcommerce/Products/product_info.html.twig', array(
             'product' => $product,
             'basket' => $basket
-        ));
-    }
-
-    public function categoryAction($category)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $repository = $em->getRepository('EcommerceEcommerceBundle:Products');
-        $products = $repository->byCategory($category);
-
-        $repository1 = $em->getRepository('EcommerceEcommerceBundle:Categories');
-        $category = $repository1->find($category);
-        if(!$category) throw $this->createNotFoundException('La page n\'existe pas');
-
-        return $this->render('@EcommerceEcommerce/Products/list_product.html.twig', array(
-                'products' => $products
         ));
     }
 

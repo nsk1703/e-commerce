@@ -10,6 +10,7 @@ namespace Ecommerce\EcommerceBundle\Repository;
  */
 class ProductsRepository extends \Doctrine\ORM\EntityRepository
 {
+//  Renvoit les produits correspondant a une liste d'id contenu dans un tableau d'une session donnee
     public function findArray($array)
     {
         $queryBuilder = $this->createQueryBuilder('p')
@@ -19,6 +20,7 @@ class ProductsRepository extends \Doctrine\ORM\EntityRepository
         return $queryBuilder->getQuery()->getResult();
     }
 
+//    Recuperation de tous les produits par categorie
     public function byCategory($category)
     {
         $queryBuilder = $this->createQueryBuilder('p')
@@ -27,7 +29,6 @@ class ProductsRepository extends \Doctrine\ORM\EntityRepository
                              ->andWhere('p.available = 1')
                              ->orderBy('p.id')
                              ->setParameter('category', $category);
-
         return $queryBuilder->getQuery()->getResult();
     }
 

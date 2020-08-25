@@ -23,6 +23,8 @@
                         <h5>{{ product.category.nom }}</h5>
                         <p>{{ product.description }}</p>
                         <h4>{{ product.price|tva(product.tva.multiplicate) }} FCFA</h4>
+{# Si le product.id de la session basket qui represente le panier n'est pas defini alors, on peut l'ajouter par le formulaire
+   Sinon, l'on affiche le message #}
                         {% if(basket[product.id] is not defined) %}
                         <form action="{{ path('add_basket', { 'id' : product.id }) }}" method="GET">
                             <label>

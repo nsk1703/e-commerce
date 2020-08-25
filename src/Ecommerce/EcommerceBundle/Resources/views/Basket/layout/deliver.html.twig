@@ -8,67 +8,34 @@
             <div id="collapseOne" class="accordion-body collapse in">
                 <div class="accordion-inner">
                     <div class="span4">
-                        <form action="{{ path('validate') }}">
+                        {%  if user.userAddress|length != 0  %}
+                        <form action="{{ path('validate') }}" method="POST">
                             <h4>Adresse de livraison</h4>
+                            {% for address in user.userAddress %}
                             <label class="radio">
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
-                                3b rue jules paulo, 75 000 Paris <a href="#"><i class="icon-trash"></i></a>
+                                <input type="radio" name="deliver" id="optionsRadios1" value="{{ address.id }}" {% if loop.index0 == 0 %} checked="checked" {% endif %}>
+                                {{ address.addresse }}, {{ address.cp }}, {{ address.ville }} <br>
+                                {{ address.pays }}, {{ address.prenom }} {{ address.nom }} <a href="{{ path('delete_address_deliver', {'id' : address.id }) }}"><i class="icon-trash"></i></a>
                             </label>
-                            <label class="radio">
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
-                                4b rue jules paulo, 75 000 Paris <a href="#"><i class="icon-trash"></i></a>
-                            </label>
-                            <label class="radio">
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
-                                5b rue jules paulo, 75 000 Paris <a href="#"><i class="icon-trash"></i></a>
-                            </label>
-
-                            <br /><br />
-
+                            {% endfor %}
+                            <br>
                             <h4>Adresse de facturation</h4>
+                            {% for address in user.userAddress %}
                             <label class="radio">
-                                <input type="radio" name="optionsRadios2" id="optionsRadios1" value="option1" checked="">
-                                3b rue jules paulo, 75 000 Paris <a href="#"><i class="icon-trash"></i></a>
+                                <input type="radio" name="bill" id="optionsRadios1" value="{{ address.id }}" {% if loop.index0 == 0 %} checked="checked" {% endif %}>
+                                {{ address.addresse }}, {{ address.cp }}, {{ address.ville }} <br>
+                                {{ address.pays }}, {{ address.prenom }} {{ address.nom }} <a href="{{ path('delete_address_deliver', {'id' : address.id }) }}"><i class="icon-trash"></i></a>
                             </label>
-                            <label class="radio">
-                                <input type="radio" name="optionsRadios2" id="optionsRadios1" value="option1" checked="">
-                                4b rue jules paulo, 75 000 Paris <a href="#"><i class="icon-trash"></i></a>
-                            </label>
-                            <label class="radio">
-                                <input type="radio" name="optionsRadios2" id="optionsRadios1" value="option1" checked="">
-                                5b rue jules paulo, 75 000 Paris <a href="#"><i class="icon-trash"></i></a>
-                            </label>
-                            <button class="btn btn-primary">Valider mon adresse de livraison</button>
+                            {% endfor %}
+                            <br>
+                            <button class="btn btn-primary">Valider mes addresses</button>
                         </form>
+                        {% endif %}
                     </div>
-
-
                     <div class="span4 offset2">
                         <h4>Ajouter une nouvelle adresse</h4>
-                        <form>
-                            <label>Nom</label>
-                            <input type="text">
-
-                            <label>Prénom</label>
-                            <input type="text">
-
-                            <label>Adresse</label>
-                            <input type="text">
-
-                            <label>Ville</label>
-                            <input type="text">
-
-                            <label>Code postal</label>
-                            <input type="text">
-
-                            <label>Ville</label>
-                            <input type="text">
-
-                            <label>Téléphone</label>
-                            <input type="text">
-
-                            <br />
-                            <button class="btn btn-primary">Ajouter</button>
+                        <form action="{{ path('deliver') }}" method="POST">
+                            {{ form(form) }}
                         </form>
                     </div>
                 </div>

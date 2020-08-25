@@ -15,7 +15,7 @@
                 {{ render(controller('EcommerceEcommerceBundle:Basket:menu')) }}
             </div>
             <div class="span9">
-                {# Si pas de produit alos aucun produit trouve #}
+                {# Si pas de produit alors aucun produit trouve #}
             {% if(products|length != 0) %}
                 <ul class="thumbnails">
                     {% for product in products %}
