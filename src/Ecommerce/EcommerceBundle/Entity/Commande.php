@@ -45,9 +45,9 @@ class Commande
     /**
      * @var array
      *
-     * @ORM\Column(name="products", type="array")
+     * @ORM\Column(name="commande", type="array")
      */
-    private $products;
+    private $commande;
 
     /**
      * @ORM\ManyToOne(targetEntity="Users\UsersBundle\Entity\Users", inversedBy="commandes")
@@ -140,27 +140,27 @@ class Commande
     }
 
     /**
-     * Set produits.
+     * Set commande.
      *
-     * @param array $products
+     * @param array $commande
      *
      * @return Commande
      */
-    public function setProducts($products)
+    public function setCommande($commande)
     {
-        $this->products = $products;
+        $this->commande = $commande;
 
         return $this;
     }
 
     /**
-     * Get produits.
+     * Get commande.
      *
      * @return array
      */
-    public function getProducts()
+    public function getCommande()
     {
-        return $this->products;
+        return $this->commande;
     }
 
     /**

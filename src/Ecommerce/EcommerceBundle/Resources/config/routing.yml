@@ -41,7 +41,7 @@ searchProducts:
 delete_address_deliver:
     path:     /deliver/address/deleted/{id}
     defaults: { _controller: EcommerceEcommerceBundle:Basket:deleteAddress }
-    
+
 prepare:
     path:     /prepare
     defaults: { _controller: EcommerceEcommerceBundle:Commande:prepare }

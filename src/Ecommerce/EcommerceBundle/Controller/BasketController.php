@@ -147,30 +147,19 @@ class BasketController extends Controller
         if ($request->getMethod() == 'POST')
             $this->setDeliverOnSession($request);
 
+
 //        Creation de la session, de l'entityManager et du repository
         $session = $request->getSession();
         $em = $this->getDoctrine()->getManager();
 
-//        Recuperation des entites Products, usersAddress
-        $repositoryProduct = $em->getRepository('EcommerceEcommerceBundle:Products');
-        $repositoryAddress = $em->getRepository('UsersUsersBundle:UsersAddress');
+//        Appele de la methode 'prepare' du controller commande par la methode "forward";
+//        "getContent" pour recuperer le retour
+        $prepareCommand = $this->forward('EcommerceEcommerceBundle:Commande:prepare');
+        $commande = $em->getRepository('EcommerceEcommerceBundle:Commande')->find($prepareCommand->getContent());
 
-//        Recuperation de la session address
-        $address = $session->get('address');
-
-//        Recuperation des produits stockees dans la session basket selon leur id
-//        Recuperation des addresses de livraison et de facturation de l'utilisateur
-        $products = $repositoryProduct->findArray(array_keys($session->get('basket')));
-        $userAddressDeliver = $repositoryAddress->find($address['deliver']);
-        $userAddressBill = $repositoryAddress->find($address['bill']);
-
-        return $this->render('@EcommerceEcommerce/Basket/layout/validate.html.twig', array(
-                    'products' => $products,
-                    'userAddressDeliver' => $userAddressDeliver,
-                    'userAddressBill' => $userAddressBill,
-                    'basket' => $session->get('basket') //Recuperation de la session basket
-        ));
+        return $this->render('@EcommerceEcommerce/Basket/layout/validate.html.twig', array('commande' => $commande,));
     }
+
 
     public function menuAction(Request $request)
     {
@@ -184,4 +173,6 @@ class BasketController extends Controller
                         'items' => $items
         ));
     }
+
+
 }

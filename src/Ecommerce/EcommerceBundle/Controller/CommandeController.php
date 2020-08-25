@@ -2,14 +2,88 @@
 
 namespace Ecommerce\EcommerceBundle\Controller;
 
-//use http\Env\Request;
 use Ecommerce\EcommerceBundle\Entity\Commande;
 use Users\UsersBundle\Entity\Users;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class CommandeController extends Controller
 {
+    public function generateToken()
+    {
+        try {
+            return rtrim(strtr(base64_encode(random_bytes(20)), '+/', '-_'), '=');
+
+        } catch (\Exception $e) {
+            $e->getMessage();
+        }
+    }
+
+    public function bill(Request $request)
+    {
+
+//        permet de definir une chaine aleatoire qui va nous servir de token pour n'importe quel API
+//        $generator = $this->container->get('security.csrf.token_generator');
+
+        $session = $request->getSession();
+        $address = $session->get('address');
+        $entityManager = $this->getDoctrine()->getManager();
+        $basket = $session->get('basket');
+
+        $commande = array();
+        $totalHT = 0;
+        $totalTTC = 0;
+
+        $bill = $entityManager->getRepository('UsersUsersBundle:UsersAddress')->find($address['bill']);
+        $deliver = $entityManager->getRepository('UsersUsersBundle:UsersAddress')->find($address['deliver']);
+        $products = $entityManager->getRepository('EcommerceEcommerceBundle:Products')->findArray(array_keys($session->get('basket')));
+
+        foreach ($products as $product) {
+            $priceHT = ($product->getPrice() * $basket[$product->getId()]);
+            $priceTTC = ($product->getPrice() * $basket[$product->getId()]) / $product->getTva()->getMultiplicate();
+            $totalHT += $priceHT;
+            $totalTTC += $priceTTC;
+
+            if (!isset($commande['tva']['%' . $product->getTva()->getValeur()]))
+                $commande['tva']['%' . $product->getTva()->getValeur()] = round($priceTTC - $priceHT, 2);
+            else
+                $commande['tva']['%' . $product->getTva()->getValeur()] += round($priceTTC - $priceHT, 2);
+
+            $commande['product'][$product->getId()] = array('reference' => $product->getName(),
+                'quantity' => $basket[$product->getId()],
+                'priceHT' => round($product->getPrice(), 2),
+                'priceTTC' => round($product->getPrice() / $product->getTva()->getMultiplicate(), 2)
+            );
+        }
+
+        $commande['deliver'] = array('prenom' => $deliver->getPrenom(),
+            'nom' => $deliver->getNom(),
+            'telephone' => $deliver->getTelephone(),
+            'addresse' => $deliver->getAddresse(),
+            'cp' => $deliver->getCp(),
+            'ville' => $deliver->getVille(),
+            'pays' => $deliver->getPays(),
+            'complement' => $deliver->getComplement());
+
+        $commande['bill'] = array('prenom' => $bill->getPrenom(),
+            'nom' => $bill->getNom(),
+            'telephone' => $bill->getTelephone(),
+            'addresse' => $bill->getAddresse(),
+            'cp' => $bill->getCp(),
+            'ville' => $bill->getVille(),
+            'pays' => $bill->getPays(),
+            'complement' => $bill->getComplement());
+
+        $commande['priceHT'] = round($totalHT, 2);
+        $commande['priceTTC'] = round($totalTTC, 2);
+        $commande['token'] = bin2hex($this->generateToken());
+
+        return $commande;
+
+
+    }
+
     public function prepareAction(Request $request)
     {
         $session = $request->getSession();
@@ -25,7 +99,7 @@ class CommandeController extends Controller
         $commande->setUsers($this->container->get('security.token_storage')->getToken()->getUser());
         $commande->setValidate(0);
         $commande->setReference(0);
-        $commande->setProducts($this->bill());
+        $commande->setCommande($this->bill($request));
 
         if (!$session->has('commande'))
         {
@@ -33,9 +107,15 @@ class CommandeController extends Controller
             $session->set('commande', $commande);
         }
         $entityManager->flush();
-//        return $this->render('EcommerceEcommerceBundle:Commande:prepare.html.twig', array(
-//
-//        ));
+
+        return new Response($commande->getId());
     }
 
+    public function validateOrdered($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $commande = $em->getRepository('EcommerceEcommerceBundle:Commande')->find($id);
+
+        if ()
+    }
 }
