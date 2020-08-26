@@ -45,3 +45,7 @@ delete_address_deliver:
 prepare:
     path:     /prepare
     defaults: { _controller: EcommerceEcommerceBundle:Commande:prepare }
+
+validate_ordered:
+    path:     /api/paypal/{id}
+    defaults: { _controller: EcommerceEcommerceBundle:Commande:validateOrdered }

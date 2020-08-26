@@ -21,6 +21,8 @@ class AppKernel extends Kernel
             new Pages\PagesBundle\PagesPagesBundle(),
             new Users\UsersBundle\UsersUsersBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new JMS\Payment\CoreBundle\JMSPaymentCoreBundle(),
+            new JMS\Payment\PaypalBundle\JMSPaymentPaypalBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

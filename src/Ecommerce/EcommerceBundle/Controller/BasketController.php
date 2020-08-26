@@ -35,7 +35,6 @@ class BasketController extends Controller
 
         $session->set('basket', $basket);
 
-
         return $this->redirect($this->generateUrl('basket'));
     }
 
@@ -154,12 +153,13 @@ class BasketController extends Controller
 
 //        Appele de la methode 'prepare' du controller commande par la methode "forward";
 //        "getContent" pour recuperer le retour
-        $prepareCommand = $this->forward('EcommerceEcommerceBundle:Commande:prepare');
+        $prepareCommand = $this->forward('EcommerceEcommerceBundle:Commande:prepareOrdered');
+//        var_dump($prepareCommand->getContent());
         $commande = $em->getRepository('EcommerceEcommerceBundle:Commande')->find($prepareCommand->getContent());
-
-        return $this->render('@EcommerceEcommerce/Basket/layout/validate.html.twig', array('commande' => $commande,));
+//        var_dump($commande);
+//        die();
+        return $this->render('@EcommerceEcommerce/Basket/layout/validate.html.twig', array('commande' => $commande));
     }
-
 
     public function menuAction(Request $request)
     {

@@ -64,6 +64,8 @@ doctrine:
         auto_generate_proxy_classes: '%kernel.debug%'
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
+        mappings:
+          JMSPaymentCoreBundle: ~
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -86,3 +88,12 @@ fos_user:
     from_email:
         address: "%mailer_user%"
         sender_name: "%mailer_user%"
+
+jms_payment_core:
+    encryption:
+        secret: def0000028b8059819801fbe608c167f4624da898c13a43fbc2389b755b55495a0041882606c2da2fbb32d2bea3f33ab507370ca390369aab52894c0fa11eb31f8da3c82
+
+jms_payment_paypal:
+    username: your_api_username # not your account username
+    password: your_api_password # not your account password
+    signature: your_api_signature

@@ -22,14 +22,13 @@ class CommandeController extends Controller
 
     public function bill(Request $request)
     {
-
 //        permet de definir une chaine aleatoire qui va nous servir de token pour n'importe quel API
 //        $generator = $this->container->get('security.csrf.token_generator');
 
         $session = $request->getSession();
         $address = $session->get('address');
-        $entityManager = $this->getDoctrine()->getManager();
         $basket = $session->get('basket');
+        $entityManager = $this->getDoctrine()->getManager();
 
         $commande = array();
         $totalHT = 0;
@@ -80,42 +79,56 @@ class CommandeController extends Controller
         $commande['token'] = bin2hex($this->generateToken());
 
         return $commande;
-
-
     }
 
-    public function prepareAction(Request $request)
+    public function prepareOrderedAction(Request $request)
     {
         $session = $request->getSession();
+//        $session->clear();
         $entityManager = $this->getDoctrine()->getManager();
 
 //        Pour eviter de rajouter deux fois la commande a la base de donnees, lorsque l'on fait un retour
-        if (!$session->has('commande'))
-            $commande = new Commande();
-        else
+        if ($session->has('commande'))
             $commande = $entityManager->getRepository('EcommerceEcommerceBundle:Commande')->find($session->get('commande'));
+        else
+            $commande = new Commande();
 
-        $commande->setDate(new \DateTime());
-        $commande->setUsers($this->container->get('security.token_storage')->getToken()->getUser());
         $commande->setValidate(0);
+        $commande->setDate(new \DateTime());
         $commande->setReference(0);
+        $commande->setUsers($this->container->get('security.token_storage')->getToken()->getUser());
         $commande->setCommande($this->bill($request));
 
-        if (!$session->has('commande'))
-        {
+        if (!$session->has('commande')){
             $entityManager->persist($commande);
             $session->set('commande', $commande);
         }
+
         $entityManager->flush();
 
         return new Response($commande->getId());
     }
 
-    public function validateOrdered($id)
+//    Cette methode remplace l'api banque
+//    Gestion de paiement par l'api PAYPAL sur symfony3.4
+    public function validateOrderedAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $commande = $em->getRepository('EcommerceEcommerceBundle:Commande')->find($id);
 
-        if ()
+        if (!$commande || $commande->getValidate() == 1)
+            throw $this->createNotFoundException('La Commande n\'existe pas');
+
+        $commande->setValidate(1);
+        $commande->setReference(1); //Ajout d'un service
+        $em->flush();
+
+        $session = $request->getSession();
+        $session->remove('address');
+        $session->remove('basket');
+        $session->remove('commande');
+
+        $this->get('session')->getFlashBag()->add('success', 'Votre commande est valide avec succes!');
+        return $this->redirect($this->generateUrl('list_product'));
     }
 }
