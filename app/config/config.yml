@@ -97,3 +97,19 @@ jms_payment_paypal:
     username: your_api_username # not your account username
     password: your_api_password # not your account password
     signature: your_api_signature
+    return_url:
+    cancel_url:
+    notify_url:
+    useraction: commit
+
+knp_paginator:
+  page_range: 5
+  default_options:
+    page_name: page
+    sort_field_name: sort
+    sort_direction_name: direction
+    distinct: true
+
+  template:
+    pagination: 'KnpPaginatorBundle:Pagination:sliding.html.twig'
+    sortable: 'KnpPaginatorBundle:Pagination:sortable_link.html.twig'

@@ -1,3 +1,11 @@
 users_users_homepage:
     path:     /user
     defaults: { _controller: UsersUsersBundle:Default:index }
+
+bills:
+    path:     /profile/bills
+    defaults: { _controller: UsersUsersBundle:Users:bills }
+
+bill_pdf:
+    path:     /profile/bills/pdf/{id}
+    defaults: { _controller: UsersUsersBundle:Users:billPDF }

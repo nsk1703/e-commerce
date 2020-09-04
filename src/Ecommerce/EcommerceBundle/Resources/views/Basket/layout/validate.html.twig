@@ -61,10 +61,10 @@
                 </div>
 
                 <div class="clearfix"></div>
-                {{ dump(commande.id) }}
-                {{ dump(commande.commande.token) }}
-                {{ dump(commande.commande.priceTTC) }}
-                {{ dump(commande.date|date('d/m/y h:m:s ')) }}
+{#                {{ dump(commande.id) }}#}
+{#                {{ dump(commande.commande.token) }}#}
+{#                {{ dump(commande.commande.priceTTC) }}#}
+{#                {{ dump(commande.date|date('d/m/y h:m:s ')) }}#}
                 <form action="{{ path('validate_ordered', { 'id' : commande.id }) }}" method="POST">
                     <input name="token" type="hidden" value="{{ commande.commande.token }}"/>
                     <input name="price" type="hidden" value="{{ commande.commande.priceTTC }}"/>

@@ -1,6 +1,10 @@
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 
+users_users:
+    resource: "@UsersUsersBundle/Resources/config/routing.yml"
+    prefix:   /
+
 pages_pages:
     resource: "@PagesPagesBundle/Resources/config/routing.yml"
     prefix:   /

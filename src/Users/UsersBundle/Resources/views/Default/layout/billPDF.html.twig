@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+        <title>Bill</title>
+        <link href="{{ asset('templates/css/bill.css') }}" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <h1>HitechElectronics</h1>
+        <table class="header">
+            <tr>
+                <td colspan="1"></td>
+                <td colspan="1"><h1>BILL</h1></td>
+                <td colspan="1"></td>
+            </tr>
+            <tr>
+                <td style="width: 80px">Page</td>
+                <td style="width: 100px">Date</td>
+                <td style="width: 120px">Ref</td>
+            </tr>
+            <tr>
+                <td class="color"></td>
+                <td class="color">{{ bill.date|date('d/m/Y') }}</td>
+                <td class="color">{{ bill.reference }}</td>
+            </tr>
+        </table>
+        <ul class="contact">
+            <li>{{ bill.commande.deliver.nom }} {{ bill.commande.deliver.prenom }}</li>
+            <li>{{ bill.commande.deliver.addresse }}</li>
+            <li>{{ bill.commande.deliver.cp }} {{ bill.commande.deliver.ville }} {{ bill.commande.deliver.pays }}</li>
+        </ul>
+        <table class="entity">
+            <tr>
+                <td style="width: 150px">DESIGNATION</td>
+                <td style="width: 100px">QUANTITY</td>
+                <td style="width: 100px">P.U - HT</td>
+                <td style="width: 100px">AMOUNT HT</td>
+                <td style="width: 100px">AMOUNT TTC</td>
+            </tr>
+            {% for product in bill.commande.product %}
+            <tr>
+                <td class="color">{{ product.reference }}</td>
+                <td class="color">{{ product.quantity }}</td>
+                <td class="color">{{ product.priceHT }}</td>
+                <td class="color">{{ product.priceHT * product.quantity }}</td>
+                <td class="color">{{ product.priceTTC * product.quantity }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <table class="total ">
+            <tr>
+                <td style="width: 110px">TOTAL HT: </td>
+                <td style="width: 100px" class="color">{{ bill.commande.priceHT }}FCFA</td>
+            </tr>
+            {% for key, tva in bill.commande.tva %}
+            <tr>
+                <td style="width: 110px">TVA: <span class="color min">{{ key }}</span></td>
+                <td style="width: 100px" class="color">{{ tva }} FCFA</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td style="width: 110px">TOTAL TTC: </td>
+                <td style="width: 100px" class="color">{{ bill.commande.priceTTC }} FCFA</td>
+            </tr>
+        </table>
+        <div class="footer">
+            <span class="color strong">{{ localisation }}</span>
+            <br/>
+            {{ phone }}
+            {{ fax }}
+        </div>
+    </body>
+</html>

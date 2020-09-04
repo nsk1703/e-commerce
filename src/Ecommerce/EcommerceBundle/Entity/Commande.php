@@ -3,6 +3,7 @@
 namespace Ecommerce\EcommerceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Payment\CoreBundle\Entity\PaymentInstruction;
 
 /**
  * Commande
@@ -20,6 +21,11 @@ class Commande
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+//    /**
+//     * @ORM\OneToOne(targetEntity="JMS\Payment\CoreBundle\Entity\PaymentInstruction")
+//     */
+//    private $paymentInstruction;
 
     /**
      * @var bool
@@ -56,6 +62,10 @@ class Commande
      */
     private $users;
 
+//    /**
+//    * @ORM\Column(type="decimal", precision=10, scale=5)
+//    */
+//    private  $amount;
 
     /**
      * Get id.
@@ -66,6 +76,16 @@ class Commande
     {
         return $this->id;
     }
+
+//    public function getPaymentInstruction()
+//    {
+//        return $this->paymentInstruction;
+//    }
+//
+//    public function setPaymentInstruction(PaymentInstruction $instruction)
+//    {
+//        $this->paymentInstruction = $instruction;
+//    }
 
     /**
      * Set validate.
@@ -186,4 +206,9 @@ class Commande
     {
         return $this->users;
     }
+
+//    public function getAmount()
+//    {
+//        return $this->amount;
+//    }
 }

@@ -3,6 +3,7 @@
 namespace Ecommerce\EcommerceBundle\Controller;
 
 use Ecommerce\EcommerceBundle\Entity\Commande;
+use JMS\Payment\CoreBundle\Entity\Payment;
 use Users\UsersBundle\Entity\Users;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,13 +27,14 @@ class CommandeController extends Controller
 //        $generator = $this->container->get('security.csrf.token_generator');
 
         $session = $request->getSession();
+//        $session->clear();
         $address = $session->get('address');
         $basket = $session->get('basket');
         $entityManager = $this->getDoctrine()->getManager();
 
         $commande = array();
         $totalHT = 0;
-        $totalTTC = 0;
+        $totalTVA = 0;
 
         $bill = $entityManager->getRepository('UsersUsersBundle:UsersAddress')->find($address['bill']);
         $deliver = $entityManager->getRepository('UsersUsersBundle:UsersAddress')->find($address['deliver']);
@@ -42,12 +44,13 @@ class CommandeController extends Controller
             $priceHT = ($product->getPrice() * $basket[$product->getId()]);
             $priceTTC = ($product->getPrice() * $basket[$product->getId()]) / $product->getTva()->getMultiplicate();
             $totalHT += $priceHT;
-            $totalTTC += $priceTTC;
 
             if (!isset($commande['tva']['%' . $product->getTva()->getValeur()]))
                 $commande['tva']['%' . $product->getTva()->getValeur()] = round($priceTTC - $priceHT, 2);
             else
                 $commande['tva']['%' . $product->getTva()->getValeur()] += round($priceTTC - $priceHT, 2);
+
+            $totalTVA += round($priceTTC - $priceHT, 2);
 
             $commande['product'][$product->getId()] = array('reference' => $product->getName(),
                 'quantity' => $basket[$product->getId()],
@@ -75,7 +78,7 @@ class CommandeController extends Controller
             'complement' => $bill->getComplement());
 
         $commande['priceHT'] = round($totalHT, 2);
-        $commande['priceTTC'] = round($totalTTC, 2);
+        $commande['priceTTC'] = round($totalTVA + $totalHT, 2);
         $commande['token'] = bin2hex($this->generateToken());
 
         return $commande;
@@ -113,14 +116,18 @@ class CommandeController extends Controller
 //    Gestion de paiement par l'api PAYPAL sur symfony3.4
     public function validateOrderedAction(Request $request, $id)
     {
+//        $payment = new PaymentPa;
+//        $payment->oA
         $em = $this->getDoctrine()->getManager();
         $commande = $em->getRepository('EcommerceEcommerceBundle:Commande')->find($id);
 
+//        var_dump($commande);
+//        die();
         if (!$commande || $commande->getValidate() == 1)
             throw $this->createNotFoundException('La Commande n\'existe pas');
 
         $commande->setValidate(1);
-        $commande->setReference(1); //Ajout d'un service
+        $commande->setReference($this->container->get('setNewReference')->reference()); //Ajout d'un service
         $em->flush();
 
         $session = $request->getSession();
@@ -128,7 +135,8 @@ class CommandeController extends Controller
         $session->remove('basket');
         $session->remove('commande');
 
+
         $this->get('session')->getFlashBag()->add('success', 'Votre commande est valide avec succes!');
-        return $this->redirect($this->generateUrl('list_product'));
+        return $this->redirect($this->generateUrl('bills'));
     }
 }

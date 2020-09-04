@@ -7,6 +7,7 @@
             <div class="span3">
                 {# Appel de layout navigation dans les categories et de module de connexion d'utilisateur #}
                 {% include 'layout/navigation.html.twig' %}
+{#                Condition d'aaffichage en cas d'authentification #}
                 {% if(is_granted('IS_AUTHENTICATED_FULLY')) %}
                     {% include 'UsersUsersBundle:Default/modulesUsed:usersConnected.html.twig' %}
                 {% else %}

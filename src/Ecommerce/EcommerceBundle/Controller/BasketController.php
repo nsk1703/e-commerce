@@ -9,12 +9,29 @@ use Users\UsersBundle\Form\UsersAddressType;
 
 class BasketController extends Controller
 {
+    public function basketAction(Request $request)
+    {
+//        Definition de la variable session "basket" en l'attribuant le type tableau
+        $session = $request->getSession();
+        if(!$session->has('basket')) $session->set('basket', array());
+
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('EcommerceEcommerceBundle:Products');
+        $products = $repository->findArray(array_keys($session->get('basket')));
+
+        return $this->render('@EcommerceEcommerce/Basket/layout/basket.html.twig', array(
+            'products' => $products,
+//                    Recuperation de la session basket
+            'basket' => $session->get('basket')
+        ));
+    }
+
     public function addBasketAction(Request $request, $id)
     {
 //        recuperation de notre session
         $session = $request->getSession();
-
-//        Si la session a pour parametre 'basket', alors on l'a set et l'a recupere dans la variable $basket
+//        $session->destroy();
+//        Si la session n'a pas pour parametre 'basket', alors on la set en tableau et recupere dans la variable $basket
         if(!$session->has('basket')) $session->set('basket', array());
             $basket = $session->get('basket');
 
@@ -52,23 +69,6 @@ class BasketController extends Controller
         return $this->redirect($this->generateUrl('basket'));
     }
 
-    public function basketAction(Request $request)
-    {
-//        Definition de la variable session "basket" en l'attribuant le type tableau
-        $session = $request->getSession();
-        if(!$session->has('basket')) $session->set('basket', array());
-
-        $em = $this->getDoctrine()->getManager();
-        $repository = $em->getRepository('EcommerceEcommerceBundle:Products');
-        $products = $repository->findArray(array_keys($session->get('basket')));
-
-        return $this->render('@EcommerceEcommerce/Basket/layout/basket.html.twig', array(
-                    'products' => $products,
-//                    Recuperation de la session basket
-                    'basket' => $session->get('basket')
-        ));
-    }
-
     public function deleteAddressAction($id)
     {
         $entityManager = $this->getDoctrine()->getManager();
@@ -97,7 +97,11 @@ class BasketController extends Controller
 //        Si une methode POST a ete retourne du formulaire, et si il est valid
         if ($request->getMethod() == "POST")
         {
+//             Recupere les information du $request, verifie si c'est un post et va irriguer la
+//            classe 'usersAddress aec les informations qu'il va recuperer au niveau du createForm
             $form->handleRequest($request);
+
+//            Si les entrees du formulaire sont valides?
             if ($form->isValid())
             {
                 $entityManager = $this->getDoctrine()->getManager();
@@ -146,27 +150,25 @@ class BasketController extends Controller
         if ($request->getMethod() == 'POST')
             $this->setDeliverOnSession($request);
 
-
-//        Creation de la session, de l'entityManager et du repository
-        $session = $request->getSession();
+//        Creation de l'entityManager et du repository
         $em = $this->getDoctrine()->getManager();
 
 //        Appele de la methode 'prepare' du controller commande par la methode "forward";
-//        "getContent" pour recuperer le retour
+//        "getContent" pour recuperer le return
         $prepareCommand = $this->forward('EcommerceEcommerceBundle:Commande:prepareOrdered');
-//        var_dump($prepareCommand->getContent());
         $commande = $em->getRepository('EcommerceEcommerceBundle:Commande')->find($prepareCommand->getContent());
-//        var_dump($commande);
-//        die();
+
         return $this->render('@EcommerceEcommerce/Basket/layout/validate.html.twig', array('commande' => $commande));
     }
 
+//    Retourne le nombre de produits contenus dans le panier
     public function menuAction(Request $request)
     {
         $session = $request->getSession();
         if (!$session->has('basket'))
             $items = 0;
         else
+//            Compteur du nombre de produits dans le panier
             $items = count($session->get('basket'));
 
         return $this->render('@EcommerceEcommerce/Basket/modulesUsed/info_basket.html.twig', array(
