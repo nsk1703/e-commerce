@@ -21,9 +21,12 @@ class ProductsController extends Controller
 //        Si la categorie n'est pas null, alors on recupere les produits par categories
 //        sinon par disponibilite
         if ($category != null)
-            $products = $repository->byCategory($category);
+            $list_products = $repository->byCategory($category);
         else
-            $products = $repository->findBy(array('available' => 1));
+            $list_products = $repository->findBy(array('available' => 1));
+
+        $products = $this->get('knp_paginator')->paginate($list_products,
+            $request->query->get('page', 1) /*Le numero de la page a aficher*/, 7 /*le nombre d' elements par page*/);
 
 //        Recuperation de la variable session[basket]
         if ($session->has('basket')){

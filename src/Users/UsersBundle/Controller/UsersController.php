@@ -33,7 +33,7 @@ class UsersController extends Controller
 //       if you are in a controlller use :
         $pdf = $this->get("white_october.tcpdf")->create('vertical', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $pdf->SetAuthor('MOKOLO');
-        $pdf->SetTitle(('Bill_'.$bill->getReference()));
+        $pdf->SetTitle(('Bill_'.$bill->getUsers()));
         $pdf->SetSubject('Bill to Paid');
 
         $pdf->setFontSubsetting(true);

@@ -21,39 +21,22 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="brand" href="{{ path('list_product') }}">HitechElectronics</a>
-                    <div class="nav-collapse collapse">
-                        {{ render(controller('EcommerceEcommerceBundle:Products:search')) }}
-                    </div>
+                    <a class="brand" href="#">Administration</a>
                 </div>
             </div>
         </div>
-        {% block body %}
-
-        {% endblock %}
+        <div class="container">
+            <div class="row">
+                {% include "layout/navigationAdmin.html.twig" %}
+                <div class="span9">
+                    {% block body %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
         <hr />
         <footer id="footer" class="vspace20">
             <div class="container">
-                <div class="row">
-                    <div class="span4 offset1">
-                        <h4>Informations</h4>
-                        <ul class="nav nav-stacked">
-                            {{ render(controller('PagesPagesBundle:Pages:menu')) }}
-                        </ul>
-                    </div>
-
-                    <div class="span4">
-                        <h4>Our Local</h4>
-                        <p><i class="icon-map-marker"></i>&nbsp;{{ localisation }}</p>
-                    </div>
-
-                    <div class="span2">
-                        <h4>Contact Us</h4>
-                        <p><i class="icon-phone"></i>&nbsp;Tel: {{ phone }}</p>
-                        <p><i class="icon-print"></i>&nbsp;Fax: {{ fax }}</p>
-                    </div>
-                </div>
-
                 <div class="row">
                     <div class="text-center">
                         <p>&copy; Copyright {{ "now"|date('Y') }} - {{ Enterprise }}</p>

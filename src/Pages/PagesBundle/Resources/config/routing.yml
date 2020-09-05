@@ -1,3 +1,7 @@
+pages_pages_adminPages:
+    resource: "@PagesPagesBundle/Resources/config/routingAdmin.yml"
+    prefix:   /admin/pages
+
 pages:
     path:     /page/{id}
     defaults: { _controller: PagesPagesBundle:Pages:pages }

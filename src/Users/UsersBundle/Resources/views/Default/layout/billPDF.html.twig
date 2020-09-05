@@ -2,72 +2,75 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
-        <title>Bill</title>
+        <title>Bill {{ bill.commande.deliver.nom }} {{ bill.commande.deliver.prenom }}</title>
         <link href="{{ asset('templates/css/bill.css') }}" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <h1>HitechElectronics</h1>
-        <table class="header">
-            <tr>
-                <td colspan="1"></td>
-                <td colspan="1"><h1>BILL</h1></td>
-                <td colspan="1"></td>
-            </tr>
-            <tr>
-                <td style="width: 80px">Page</td>
-                <td style="width: 100px">Date</td>
-                <td style="width: 120px">Ref</td>
-            </tr>
-            <tr>
-                <td class="color"></td>
-                <td class="color">{{ bill.date|date('d/m/Y') }}</td>
-                <td class="color">{{ bill.reference }}</td>
-            </tr>
-        </table>
-        <ul class="contact">
-            <li>{{ bill.commande.deliver.nom }} {{ bill.commande.deliver.prenom }}</li>
-            <li>{{ bill.commande.deliver.addresse }}</li>
-            <li>{{ bill.commande.deliver.cp }} {{ bill.commande.deliver.ville }} {{ bill.commande.deliver.pays }}</li>
-        </ul>
-        <table class="entity">
-            <tr>
-                <td style="width: 150px">DESIGNATION</td>
-                <td style="width: 100px">QUANTITY</td>
-                <td style="width: 100px">P.U - HT</td>
-                <td style="width: 100px">AMOUNT HT</td>
-                <td style="width: 100px">AMOUNT TTC</td>
-            </tr>
+        <header>
+            <h1>BILL</h1>
+            <h2>HitechElectronics</h2>
+        </header>
+        <section class="flex">
+            <dl>
+                <dt>Bill #</dt>
+                <dd>{{ bill.reference }}</dd>
+                <dt>Billing's date</dt>
+                <dd>{{ bill.date|date('d/m/Y') }}</dd>
+            </dl>
+        </section>
+        <section class="flex">
+            <dl class="bloc">
+                <dt>Bill to</dt>
+                <dd>{{ bill.commande.deliver.nom }}
+                    {{ bill.commande.deliver.prenom }}
+                    {{ bill.commande.deliver.addresse }}
+                    {{ bill.commande.deliver.cp }} {{ bill.commande.deliver.ville }} {{ bill.commande.deliver.pays }}
+                </dd>
+                <dt>Billing's date</dt>
+                <dd>{{ bill.date|date('d/m/Y') }}</dd>
+            </dl>
+        </section>
+        <table>
+            <thead>
+                <tr>
+                    <th>DESIGNATION</th>
+                    <th>QUANTITY</th>
+                    <th>P.U - HT</th>
+                    <th>AMOUNT HT</th>
+                    <th>AMOUNT TTC</th>
+                </tr>
+            </thead>
+            <tbody>
             {% for product in bill.commande.product %}
-            <tr>
-                <td class="color">{{ product.reference }}</td>
-                <td class="color">{{ product.quantity }}</td>
-                <td class="color">{{ product.priceHT }}</td>
-                <td class="color">{{ product.priceHT * product.quantity }}</td>
-                <td class="color">{{ product.priceTTC * product.quantity }}</td>
-            </tr>
+                <tr>
+                    <td class="color">{{ product.reference }}</td>
+                    <td class="color">{{ product.quantity }}</td>
+                    <td class="color">{{ product.priceHT }}</td>
+                    <td class="color">{{ product.priceHT * product.quantity }}</td>
+                    <td class="color">{{ product.priceTTC * product.quantity }}</td>
+                </tr>
             {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>(colspan="3") − Faire les chèques payable au nom Ndoum Samuel</td>
+                    <td style="width: 110px">TOTAL HT: </td>
+                    <td style="width: 100px" class="color">{{ bill.commande.priceHT }}FCFA</td>
+                    {% for key, tva in bill.commande.tva %}
+                        <td style="width: 110px">TVA: <span class="color min">{{ key }}</span></td>
+                        <td style="width: 100px" class="color">{{ tva }} FCFA</td>
+                    {% endfor %}
+                    <td style="width: 110px">TOTAL TTC: </td>
+                    <td style="width: 100px" class="color">{{ bill.commande.priceTTC }} FCFA</td>
+                </tr>
+            </tfoot>
         </table>
-        <table class="total ">
-            <tr>
-                <td style="width: 110px">TOTAL HT: </td>
-                <td style="width: 100px" class="color">{{ bill.commande.priceHT }}FCFA</td>
-            </tr>
-            {% for key, tva in bill.commande.tva %}
-            <tr>
-                <td style="width: 110px">TVA: <span class="color min">{{ key }}</span></td>
-                <td style="width: 100px" class="color">{{ tva }} FCFA</td>
-            </tr>
-            {% endfor %}
-            <tr>
-                <td style="width: 110px">TOTAL TTC: </td>
-                <td style="width: 100px" class="color">{{ bill.commande.priceTTC }} FCFA</td>
-            </tr>
-        </table>
-        <div class="footer">
-            <span class="color strong">{{ localisation }}</span>
-            <br/>
-            {{ phone }}
-            {{ fax }}
-        </div>
+        <footer>
+           <p>
+               {{ localisation }}
+               {{ phone }}
+               {{ fax }}
+           </p>
+        </footer>
     </body>
 </html>
