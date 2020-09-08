@@ -1,36 +1,36 @@
 {% extends 'baseAdmin.html.twig' %}
 
 {% block body %}
-    <h1>Page</h1>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ page.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ page.title }}</td>
-            </tr>
-            <tr>
-                <th>Content</th>
-                <td>{{ page.content }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('adminPages_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('adminPages_edit', { 'id': page.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    <div class="card mb-3">
+    <div class="card-header">
+        <i class="fas fa-table"></i>
+        Page
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped" id="dataTables">
+                <tbody>
+                    <tr>
+                        <th>Id</th>
+                        <td>{{ page.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Title</th>
+                        <td>{{ page.title }}</td>
+                    </tr>
+                    <tr>
+                        <th>Content</th>
+                        <td>{{ page.content }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+    <a href="{{ path('adminPages_index') }}" class="btn btn-primary">Back</a>
+    <a href="{{ path('adminPages_edit', { 'id': page.id }) }}" style="float: right" class="btn btn-success">Edit</a>
+    {{ form_start(delete_form) }}
+        <input class="btn btn-danger my-2" style="float: right" type="submit" value="Delete">
+    {{ form_end(delete_form) }}
 {% endblock %}

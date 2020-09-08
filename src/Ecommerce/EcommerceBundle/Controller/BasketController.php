@@ -98,7 +98,7 @@ class BasketController extends Controller
         if ($request->getMethod() == "POST")
         {
 //             Recupere les information du $request, verifie si c'est un post et va irriguer la
-//            classe 'usersAddress aec les informations qu'il va recuperer au niveau du createForm
+//            classe 'usersAddress avec les informations qu'il va recuperer au niveau du createForm
             $form->handleRequest($request);
 
 //            Si les entrees du formulaire sont valides?

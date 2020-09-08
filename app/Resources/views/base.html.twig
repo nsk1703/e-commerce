@@ -2,67 +2,67 @@
 <html>
     <head>
         <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>{% block title %}HitechElectronics{% endblock %}</title>
         <meta name="keywords" content="{% block keywords %}{% endblock %}"/>
         <meta name="description" content="{% block description %}{% endblock %}"/>
-        <link rel="stylesheet" href="{{ asset('templates/css/bootstrap.css') }}" />
-        <link rel="stylesheet" href="{{ asset('templates/css/bootstrap-responsive.css') }}" />
+
+        <link href="{{ asset('templates/css/shop-homepage.css') }}" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('templates/css/style.css') }}" />
-        <link rel="stylesheet" href="{{ asset('templates/css/font-awesome.css') }}" />
+        <link rel="stylesheet" href="{{ asset('templates/css/bootstrap/bootstrap.css') }}" />
+        <link rel="stylesheet" href="{{ asset('templates/css/bootstrap/bootstrap.min.css') }}" />
+
+        <link rel="stylesheet" href="{{ asset('templates/css/fontawesome/fontawesome.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('templates/css/fontawesome/fontawesome.min.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('templates/css/fontawesome/all.css') }}"/>
+
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container">
-                    <button class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse" type="button">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="brand" href="{{ path('list_product') }}">HitechElectronics</a>
-                    <div class="nav-collapse collapse">
-                        {{ render(controller('EcommerceEcommerceBundle:Products:search')) }}
-                    </div>
-                </div>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-warning fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="{{ path('list_product') }}" style="color: #0000cc">HitechElectronics</a>
+                {{ render(controller('EcommerceEcommerceBundle:Products:search')) }}
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row">
+                {% block body %}
+
+                {% endblock %}
             </div>
         </div>
-        {% block body %}
 
-        {% endblock %}
-        <hr />
-        <footer id="footer" class="vspace20">
+        <footer class="py-5 ">
             <div class="container">
                 <div class="row">
-                    <div class="span4 offset1">
+                    <div class="col-md-4">
                         <h4>Informations</h4>
-                        <ul class="nav nav-stacked">
+                        <ul class="" style="list-style-type: none;">
                             {{ render(controller('PagesPagesBundle:Pages:menu')) }}
                         </ul>
                     </div>
-
-                    <div class="span4">
+                    <div class="col-md-4">
                         <h4>Our Local</h4>
                         <p><i class="icon-map-marker"></i>&nbsp;{{ localisation }}</p>
                     </div>
-
-                    <div class="span2">
+                    <div class="col-md-4">
                         <h4>Contact Us</h4>
                         <p><i class="icon-phone"></i>&nbsp;Tel: {{ phone }}</p>
                         <p><i class="icon-print"></i>&nbsp;Fax: {{ fax }}</p>
                     </div>
                 </div>
-
-                <div class="row">
-                    <div class="text-center">
-                        <p>&copy; Copyright {{ "now"|date('Y') }} - {{ Enterprise }}</p>
-                    </div>
+            </div>
+            <div class="container">
+                <div class="" style="color: white">
+                    <p class="text-center">&copy;Copyright {{ "now"|date('Y') }} - {{ Enterprise }}</p>
                 </div>
             </div>
         </footer>
-        <script src="{{ asset('templates/js/jquery-1.10.0.min.js') }}"></script>
-        <script src="{{ asset('templates/js/bootstrap.js') }}"></script>
+        <script src="{{ asset('templates/js/jquery/jquery-1.10.0.min.js') }}"></script>
+        <script src="{{ asset('templates/js/bootstrap/bootstrap.js') }}"></script>
+        <script src="{{ asset('templates/js/bootstrap/bootstrap.min.js') }}"></script>
         {% block javascripts %}{% endblock %}
     </body>
 </html>

@@ -1,41 +1,37 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-    <div class="container">
-        <div class="row">
-
-            <div class="span3">
-                {# Appel de layout navigation dans les categories et de module de connexion d'utilisateur #}
-                {% include 'layout/navigation.html.twig' %}
-{#                Condition d'aaffichage en cas d'authentification #}
-                {% if(is_granted('IS_AUTHENTICATED_FULLY')) %}
-                    {% include 'UsersUsersBundle:Default/modulesUsed:usersConnected.html.twig' %}
-                {% else %}
-                    {% include 'UsersUsersBundle:Default/modulesUsed:usersAction.html.twig' %}
-                {% endif %}
-                {{ render(controller('EcommerceEcommerceBundle:Basket:menu')) }}
-            </div>
-            <div class="span9">
+        <div class="col-lg-3">
+            {# Appel de layout navigation dans les categories et de module de connexion d'utilisateur #}
+            {% include 'layout/navigation.html.twig' %}
+{#                Condition d'affichage en cas d'authentification #}
+            {% if(is_granted('IS_AUTHENTICATED_FULLY')) %}
+                {% include 'UsersUsersBundle:Default/modulesUsed:usersConnected.html.twig' %}
+            {% else %}
+                {% include 'UsersUsersBundle:Default/modulesUsed:usersAction.html.twig' %}
+            {% endif %}
+            {{ render(controller('EcommerceEcommerceBundle:Basket:menu')) }}
+        </div>
+        <div class="col-lg-9">
                 {# Si pas de produit alors aucun produit trouve #}
-            {% if(products|length != 0) %}
-                <ul class="thumbnails">
+            <div class="row">
+                {% if(products|length != 0) %}
                     {% for product in products %}
-                        <li class="span3">
-                            <div class="thumbnail">
-                                <img src="{{ product.image.path }}" alt="{{ product.name }}" width="300" height="150">
-                                <div class="caption">
-                                    <h4>{{ product.name }}</h4>
-                                    <p>{{ product.price|tva(product.tva.multiplicate) }} FCFA</p>
-                                    <a class="btn btn-primary" href="{{ path('product_info', { 'id' : product.id }) }}">More Details</a>
-                                    {% if(basket[product.id] is not defined) %}
-                                    <a class="btn btn-success" href="{{ path('add_basket', { 'id' : product.id }) }}">Add in Basket</a>
-                                    {% endif %}
-                                </div>
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100 m-0">
+                            <a href="{{ path('product_info', { 'id' : product.id }) }}"><img class="card-img-top " src="{{ product.image.path }}" alt=""></a>
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <a style="text-decoration: none; color: black;" href="{{ path('product_info', { 'id' : product.id }) }}">{{ product.name }}</a>
+                                </h4>
+                                <h5>{{ product.price|tva(product.tva.multiplicate) }} FCFA</h5>
+                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
                             </div>
-                        </li>
+                        </div>
+                    </div>
                     {% endfor %}
-                </ul>
-                <div class="text-center">
+                </div>
+                <div class="justify-content-center align-items-center">
                     {{ knp_pagination_render(products) }}
                 </div>
             {% else %}
@@ -43,5 +39,4 @@
             {% endif %}
             </div>
         </div>
-    </div>
 {% endblock %}

@@ -1,51 +1,88 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}HitechElectronics{% endblock %}</title>
+        <meta charset="utf-8">
+        <title>{% block title %}HitechElectronics-Administration{% endblock %}</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="keywords" content="{% block keywords %}{% endblock %}"/>
         <meta name="description" content="{% block description %}{% endblock %}"/>
-        <link rel="stylesheet" href="{{ asset('templates/css/bootstrap.css') }}" />
-        <link rel="stylesheet" href="{{ asset('templates/css/bootstrap-responsive.css') }}" />
-        <link rel="stylesheet" href="{{ asset('templates/css/style.css') }}" />
-        <link rel="stylesheet" href="{{ asset('templates/css/font-awesome.css') }}" />
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+        <link href="{{ asset('templatesAdmin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('templatesAdmin/vendor/datatables/dataTables.bootstrap4.css') }}" rel="stylesheet">
+        <link href="{{ asset('templatesAdmin/css/sb-admin.css') }}" rel="stylesheet">
+
     </head>
-    <body>
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container">
-                    <button class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse" type="button">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="brand" href="#">Administration</a>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                {% include "layout/navigationAdmin.html.twig" %}
-                <div class="span9">
+    <body id="page-top">
+        <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+
+            <a class="navbar-brand mr-1" href="{{ path('adminPages_index') }}">Administration</a>
+            <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+        <div id="wrapper">
+            <ul class="sidebar navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ path('adminPages_index') }}">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                {% include 'layout/navigationAdmin.html.twig' %}
+            </ul>
+            <div id="content-wrapper">
+                <div class="container-fluid">
+                    <!-- Breadcrumbs-->
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="#">Dashboard</a>
+                        </li>
+                        <li class="breadcrumb-item active">Overview</li>
+                    </ol>
+
+                    <!-- /.container-fluid -->
                     {% block body %}
+
                     {% endblock %}
                 </div>
+
+                    <!-- Sticky Footer -->
+                <footer class="sticky-footer">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>&copy;Copyright {{ "now"|date('Y') }} - {{ Enterprise }}</span>
+                        </div>
+                    </div>
+                </footer>
             </div>
         </div>
-        <hr />
-        <footer id="footer" class="vspace20">
-            <div class="container">
-                <div class="row">
-                    <div class="text-center">
-                        <p>&copy; Copyright {{ "now"|date('Y') }} - {{ Enterprise }}</p>
-                    </div>
-                </div>
-            </div>
-        </footer>
-        <script src="{{ asset('templates/js/jquery-1.10.0.min.js') }}"></script>
-        <script src="{{ asset('templates/js/bootstrap.js') }}"></script>
-        {% block javascripts %}{% endblock %}
+
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+
+        <!-- ckeditor-->
+        <script src="{{ asset('bundles/pagespages/ckeditor/ckeditor.js') }}"></script>
+
+        <!-- Bootstrap core JavaScript-->
+        <script src="{{ asset('templatesAdmin/vendor/jquery/jquery.min.js') }}"></script>
+        <script src="{{ asset('templatesAdmin/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+        <!-- Core plugin JavaScript-->
+        <script src="{{ asset('templatesAdmin/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+
+        <!-- Page level plugin JavaScript-->
+        <script src="{{ asset('templatesAdmin/vendor/chart.js/Chart.min.js') }}"></script>
+        <script src="{{ asset('templatesAdmin/vendor/datatables/jquery.dataTables.js') }}"></script>
+        <script src="{{ asset('templatesAdmin/vendor/datatables/dataTables.bootstrap4.js') }}"></script>
+
+        <!-- Custom scripts for all pages-->
+        <script src="{{ asset('templatesAdmin/js/sb-admin.min.js') }}"></script>
+
+        <!-- Demo scripts for this page-->
+        <script src="{{ asset('templatesAdmin/js/demo/datatables-demo.js') }}"></script>
+        <script src="{{ asset('templatesAdmin/js/demo/chart-area-demo.js') }}"></script>
     </body>
 </html>

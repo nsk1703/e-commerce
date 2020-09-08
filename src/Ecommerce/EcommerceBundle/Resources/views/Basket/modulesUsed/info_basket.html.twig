@@ -1,14 +1,10 @@
-<div class="well">
-    <ul class="nav nav-list">
-        <li class="nav-header">My Basket </li>
-        <li>
-            <a href="{{ path('basket') }}">
-                {% if(items == 0) %}
-                    Any items in your basket
-                {% else %}
-                    {{ items }} items in your basket
-                {% endif %}
-            </a>
-        </li>
-    </ul>
+<h5 class="mt-3">My Basket</h5>
+<div class="list-group">
+    <a class="list-group-item" href="{{ path('basket') }}">
+        {% if(items == 0) %}
+            Any items in your basket
+        {% else %}
+            {{ items }} items in your basket
+        {% endif %}
+    </a>
 </div>

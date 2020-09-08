@@ -25,6 +25,7 @@ class AppKernel extends Kernel
             new JMS\Payment\PaypalBundle\JMSPaymentPaypalBundle(),
             new WhiteOctober\TCPDFBundle\WhiteOctoberTCPDFBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new FOS\CKEditorBundle\FOSCKEditorBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

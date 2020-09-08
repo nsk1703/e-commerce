@@ -17,11 +17,13 @@ class SearchType extends AbstractType
     {
         $builder->setAction($options['action'])
                 ->add('search', TextType::class, array(
-                    'attr' => array('class' => 'input-medium search-query',
-                                   'placeholder' => 'search your product')
+                    'attr' => array('class' => 'form-control',
+                                   'placeholder' => 'search your product',
+                                    'type' => 'text',
+                                    'aria-label' => 'Search')
                 ))
                 ->add('Search', SubmitType::class, array(
-                    'attr' => array('class' => 'btn btn-primary')
+                    'attr' => array('class' => 'btn btn-success mr-5 my-sm-0')
                 ));
     }
 

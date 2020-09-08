@@ -1,10 +1,6 @@
-<div class="well">
-    <ul class="nav nav-list">
-        <li>
-            <a href="{{ path('fos_user_security_login') }}">Connect</a>
-        </li>
-        <li>
-            <a href="{{path('fos_user_registration_register')}}">Register</a>
-        </li>
-    </ul>
+
+<h5 class="mt-3">Are you already connected?</h5>
+<div class="list-group">
+    <a class="list-group-item" href="{{ path('fos_user_security_login') }}">Connect</a>
+    <a class="list-group-item" href="{{path('fos_user_registration_register')}}">Register</a>
 </div>

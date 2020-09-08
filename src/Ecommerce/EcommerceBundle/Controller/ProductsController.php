@@ -85,10 +85,12 @@ class ProductsController extends Controller
         if ($form->handleRequest($request)){
             $em = $this->getDoctrine()->getManager();
             $repository = $em->getRepository('EcommerceEcommerceBundle:Products');
-            $products = $repository->search($form['search']->getData());
+            $searchResponse = $repository->search($form['search']->getData());
         }else{
             throw $this->createNotFoundException('Cette article n\'existe pas');
         }
+        $products = $this->get('knp_paginator')->paginate($searchResponse,
+            $request->query->get('page', 1) /*Le numero de la page a aficher*/, 7 /*le nombre d' elements par page*/);
 
         return $this->render('@EcommerceEcommerce/Products/list_product.html.twig', array(
                     'products' => $products

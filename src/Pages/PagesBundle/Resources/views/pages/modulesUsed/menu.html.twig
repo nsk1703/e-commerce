@@ -1,4 +1,4 @@
 
 {% for page in pages %}
-    <li><a href="{{ path('pages', { 'id' : page.id }) }}">{{ page.title }}</a>
+    <li><a href="{{ path('pages', { 'id' : page.id }) }}" style=" text-decoration: none; color: black;">{{ page.title }}</a></li><br>
 {% endfor %}
