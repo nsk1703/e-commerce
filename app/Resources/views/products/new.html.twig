@@ -1,0 +1,11 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block body %}
+    <h1>Product creation</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input class="btn btn-success my-2" style="float: right" type="submit" value="Create" />
+    {{ form_end(form) }}
+     <a class="btn btn-primary my-2" href="{{ path('adminProducts_index') }}">Back</a>
+{% endblock %}

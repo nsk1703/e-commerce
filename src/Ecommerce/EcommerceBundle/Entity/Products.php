@@ -50,7 +50,7 @@ class Products
     private $available;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Ecommerce\EcommerceBundle\Entity\Categories", cascade={"persist","remove"})
+     * @ORM\ManyToOne(targetEntity="Ecommerce\EcommerceBundle\Entity\Categories", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      *
      */
@@ -64,7 +64,7 @@ class Products
     private $image;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Ecommerce\EcommerceBundle\Entity\Tva", cascade={"persist","remove"})
+     * @ORM\ManyToOne(targetEntity="Ecommerce\EcommerceBundle\Entity\Tva", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      *
      */
@@ -143,9 +143,6 @@ class Products
     {
         $this->available = $available;
     }
-
-
-
 
     /**
      * Get available.

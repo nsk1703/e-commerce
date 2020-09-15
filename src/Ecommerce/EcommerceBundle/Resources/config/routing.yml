@@ -1,6 +1,10 @@
-#ecommerce_ecommerce_homepage:
-#    path:     /
-#    defaults: { _controller: EcommerceEcommerceBundle:pages:index }
+ecommerce_ecommerce_adminProducts:
+    resource: "@EcommerceEcommerceBundle/Resources/config/routing/routingProductsAdmin.yml"
+    prefix:   /admin/products
+
+ecommerce_ecommerce_adminCommandes:
+    resource: "@EcommerceEcommerceBundle/Resources/config/routing/routingCommandesAdmin.yml"
+    prefix:   /admin/commandes
 
 list_product:
     path:     /

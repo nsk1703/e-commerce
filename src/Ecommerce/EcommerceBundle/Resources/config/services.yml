@@ -1,5 +1,9 @@
 # Declaration de notre extension twig en Service pour la rendre utilisable
 services:
+    setNewBill:
+      class: Ecommerce\EcommerceBundle\Services\GetBill
+      arguments: ['@service_container']
+
     setNewReference:
       class: Ecommerce\EcommerceBundle\Services\GetReference
       arguments: ['@security.token_storage', '@doctrine.orm.entity_manager']

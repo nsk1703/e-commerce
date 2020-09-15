@@ -1,0 +1,43 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block body %}
+
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fas fa-table"></i>
+        Products list
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped" id="dataTables">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Available</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for product in products %}
+                    <tr>
+                        <td><a href="{{ path('adminProducts_show', { 'id': product.id }) }}">{{ product.id }}</a></td>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.description }}</td>
+                        <td>{{ product.price }}</td>
+                        <td>{% if product.available %}Yes{% else %}No{% endif %}</td>
+                        <td>
+                            <a href="{{ path('adminProducts_show', { 'id': product.id }) }}"><i class="fa fa-book-reader"></i></a>
+                            <a href="{{ path('adminProducts_edit', { 'id': product.id }) }}"><i class="fa fa-pen"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <a class="btn btn-primary my-3" href="{{ path('adminProducts_new') }}">Create a new product</a>
+</div>
+{% endblock %}

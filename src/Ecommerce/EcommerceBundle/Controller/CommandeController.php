@@ -2,6 +2,7 @@
 
 namespace Ecommerce\EcommerceBundle\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Ecommerce\EcommerceBundle\Entity\Commande;
 use JMS\Payment\CoreBundle\Entity\Payment;
 use Users\UsersBundle\Entity\Users;
@@ -11,6 +12,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class CommandeController extends Controller
 {
+    private $request;
+    private $em;
+
+    public function __construct(EntityManagerInterface $em, Request $request)
+    {
+        $this->request = $request;
+        $this->em = $em;
+    }
+
     public function generateToken()
     {
         try {
@@ -21,24 +31,24 @@ class CommandeController extends Controller
         }
     }
 
-    public function bill(Request $request)
+    public function bill()
     {
 //        permet de definir une chaine aleatoire qui va nous servir de token pour n'importe quel API
 //        $generator = $this->container->get('security.csrf.token_generator');
 
-        $session = $request->getSession();
+        $session = $this->request->getSession();
 //        $session->clear();
         $address = $session->get('address');
         $basket = $session->get('basket');
-        $entityManager = $this->getDoctrine()->getManager();
+
 
         $commande = array();
         $totalHT = 0;
         $totalTVA = 0;
 
-        $bill = $entityManager->getRepository('UsersUsersBundle:UsersAddress')->find($address['bill']);
-        $deliver = $entityManager->getRepository('UsersUsersBundle:UsersAddress')->find($address['deliver']);
-        $products = $entityManager->getRepository('EcommerceEcommerceBundle:Products')->findArray(array_keys($session->get('basket')));
+        $bill = $this->em->getRepository('UsersUsersBundle:UsersAddress')->find($address['bill']);
+        $deliver = $this->em->getRepository('UsersUsersBundle:UsersAddress')->find($address['deliver']);
+        $products = $this->em->getRepository('EcommerceEcommerceBundle:Products')->findArray(array_keys($session->get('basket')));
 
         foreach ($products as $product) {
             $priceHT = ($product->getPrice() * $basket[$product->getId()]);
@@ -84,15 +94,14 @@ class CommandeController extends Controller
         return $commande;
     }
 
-    public function prepareOrderedAction(Request $request)
+    public function prepareOrderedAction()
     {
-        $session = $request->getSession();
+        $session = $this->request->getSession();
 //        $session->clear();
-        $entityManager = $this->getDoctrine()->getManager();
 
 //        Pour eviter de rajouter deux fois la commande a la base de donnees, lorsque l'on fait un retour
         if ($session->has('commande'))
-            $commande = $entityManager->getRepository('EcommerceEcommerceBundle:Commande')->find($session->get('commande'));
+            $commande = $this->em->getRepository('EcommerceEcommerceBundle:Commande')->find($session->get('commande'));
         else
             $commande = new Commande();
 
@@ -100,26 +109,25 @@ class CommandeController extends Controller
         $commande->setDate(new \DateTime());
         $commande->setReference(0);
         $commande->setUsers($this->container->get('security.token_storage')->getToken()->getUser());
-        $commande->setCommande($this->bill($request));
+        $commande->setCommande($this->bill());
 
         if (!$session->has('commande')){
-            $entityManager->persist($commande);
+            $this->em->persist($commande);
             $session->set('commande', $commande);
         }
 
-        $entityManager->flush();
+        $this->em->flush();
 
         return new Response($commande->getId());
     }
 
 //    Cette methode remplace l'api banque
 //    Gestion de paiement par l'api PAYPAL sur symfony3.4
-    public function validateOrderedAction(Request $request, $id)
+    public function validateOrderedAction($id)
     {
 //        $payment = new PaymentPa;
 //        $payment->oA
-        $em = $this->getDoctrine()->getManager();
-        $commande = $em->getRepository('EcommerceEcommerceBundle:Commande')->find($id);
+        $commande = $this->em->getRepository('EcommerceEcommerceBundle:Commande')->find($id);
 
 //        var_dump($commande);
 //        die();
@@ -128,9 +136,9 @@ class CommandeController extends Controller
 
         $commande->setValidate(1);
         $commande->setReference($this->container->get('setNewReference')->reference()); //Ajout d'un service
-        $em->flush();
+        $this->em->flush();
 
-        $session = $request->getSession();
+        $session = $this->request->getSession();
         $session->remove('address');
         $session->remove('basket');
         $session->remove('commande');

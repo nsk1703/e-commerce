@@ -35,9 +35,7 @@ class Media
      */
     private $alt;
 
-
-
-
+    private $file;
 
     /**
      * Get id.

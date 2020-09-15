@@ -9,3 +9,7 @@ bills:
 bill_pdf:
     path:     /profile/bills/pdf/{id}
     defaults: { _controller: UsersUsersBundle:Users:billPDF }
+
+users_users_adminUsers:
+    resource: "@UsersUsersBundle/Resources/config/routing/routingUsersAdmin.yml"
+    prefix:   /admin/users

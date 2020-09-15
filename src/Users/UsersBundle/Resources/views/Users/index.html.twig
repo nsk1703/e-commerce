@@ -1,0 +1,40 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block body %}
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-table"></i>
+            users's list
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped" id="dataTables">
+                    <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+{#                    {{ dump(users) }}#}
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.username }}</td>
+
+                            <td>
+                             {% if user.userAddress|length !=0 %}
+                                <a href="{{ path('adminUsers_bills', { 'id' : user.id}) }}" target="_blank" title="show bills"><i class="fa fa-money-bill"></i></a>
+                             {% endif %}
+                             {% if user.commandes|length !=0 %}
+                                <a href="{{ path('adminUsers_address', { 'id' : user.id }) }}" target="_blank" title="show details"><i class="fa fa-book-reader"></i></a>
+                              {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

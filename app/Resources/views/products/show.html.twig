@@ -1,0 +1,46 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block body %}
+
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fas fa-table"></i>
+        Product {{ product.name }}
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped" id="dataTables">
+                <tbody>
+                    <tr>
+                        <th>Id</th>
+                        <td>{{ product.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Name</th>
+                        <td>{{ product.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td>{{ product.description }}</td>
+                    </tr>
+                    <tr>
+                        <th>Price</th>
+                        <td>{{ product.price }}</td>
+                    </tr>
+                    <tr>
+                        <th>Available</th>
+                        <td>{% if product.available %}Yes{% else %}No{% endif %}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+    <a href="{{ path('adminProducts_index') }}" class="btn btn-primary">Back</a>
+    <a href="{{ path('adminProducts_edit', { 'id': product.id }) }}" style="float: right" class="btn btn-success">Edit</a>
+    {{ form_start(delete_form) }}
+        <input class="btn btn-danger my-2" style="float: right" type="submit" value="Delete">
+    {{ form_end(delete_form) }}
+
+{% endblock %}

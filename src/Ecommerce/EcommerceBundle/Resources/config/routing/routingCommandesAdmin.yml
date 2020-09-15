@@ -1,0 +1,9 @@
+adminCommandes_index:
+  path:     /
+  defaults: { _controller: "EcommerceEcommerceBundle:CommandeAdmin:commandes" }
+  methods:  GET
+
+adminShowBill:
+  path:     /{id}/bill
+  defaults: { _controller: "EcommerceEcommerceBundle:CommandeAdmin:showBill" }
+  methods: GET

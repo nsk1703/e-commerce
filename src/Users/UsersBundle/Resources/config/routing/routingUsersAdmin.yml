@@ -1,0 +1,14 @@
+adminUsers_index:
+  path:     /
+  defaults: { _controller: "UsersUsersBundle:UsersAdmin:index" }
+  methods: GET
+
+adminUsers_address:
+  path:     /{id}/address
+  defaults: { _controller: "UsersUsersBundle:UsersAdmin:userInfo" }
+  methods: GET
+
+adminUsers_bills:
+  path:     /{id}/bills
+  defaults: { _controller: "UsersUsersBundle:UsersAdmin:UserInfo" }
+  methods: GET
