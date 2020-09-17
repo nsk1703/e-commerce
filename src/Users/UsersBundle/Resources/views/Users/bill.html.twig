@@ -1,0 +1,38 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block body %}
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-table"></i>
+            user's bill list
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped" id="dataTables">
+                    <thead>
+                    <tr>
+                        <th>Reference</th>
+                        <th>Date</th>
+                        <th>Price TTC</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {#                    {{ dump(users) }}#}
+                    {% for commande in user.commandes %}
+                        <tr>
+                            <td>{{ commande.reference }}</td>
+                           <td>{{ commande.date|date('d/m/Y H:m') }}</td>
+                            <td>{{ commande.commande.priceTTC }}</td>
+                            <td><a href="{{ path('adminShowBill', { 'id' : commande.id }) }}" target="_blank" title="show details"><i class="fa fa-book-reader"></i></a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <a class="btn btn-primary my-2" href="{{ path('adminUsers_index') }}">Back</a>
+
+{% endblock %}

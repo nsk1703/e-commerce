@@ -1,3 +1,4 @@
+
 ecommerce_ecommerce_adminProducts:
     resource: "@EcommerceEcommerceBundle/Resources/config/routing/routingProductsAdmin.yml"
     prefix:   /admin/products
@@ -5,6 +6,11 @@ ecommerce_ecommerce_adminProducts:
 ecommerce_ecommerce_adminCommandes:
     resource: "@EcommerceEcommerceBundle/Resources/config/routing/routingCommandesAdmin.yml"
     prefix:   /admin/commandes
+
+ecommerce_ecommerce_adminCategories:
+    resource: "@EcommerceEcommerceBundle/Resources/config/routing/routingCategoriesAdmin.yml"
+    prefix:   /admin/categories
+
 
 list_product:
     path:     /

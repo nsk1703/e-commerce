@@ -1,0 +1,36 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block body %}
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fas fa-table"></i>
+        Category's list
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped" id="dataTables">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nom</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for category in categories %}
+                    <tr>
+                        <td><a href="{{ path('adminCategories_show', { 'id': category.id }) }}">{{ category.id }}</a></td>
+                        <td>{{ category.nom }}</td>
+                        <td>
+                            <a href="{{ path('adminCategories_show', { 'id': category.id }) }}"><i class="fa fa-book-reader"></i></a>
+                            <a href="{{ path('adminCategories_edit', { 'id': category.id }) }}"><i class="fa fa-pen"></i></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <a class="btn btn-primary my-3" href="{{ path('adminCategories_new') }}">Create a new category</a>
+</div>
+{% endblock %}

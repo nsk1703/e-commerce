@@ -1,0 +1,33 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block body %}
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fas fa-table"></i>
+        Category {{ category.nom }}
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped" id="dataTables">
+                <tbody>
+                    <tr>
+                        <th>Id</th>
+                        <td>{{ category.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nom</th>
+                        <td>{{ category.nom }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+    <a href="{{ path('adminCategories_index') }}" class="btn btn-primary">Back</a>
+    <a href="{{ path('adminCategories_edit', { 'id': category.id }) }}" style="float: right" class="btn btn-success">Edit</a>
+    {{ form_start(delete_form) }}
+        <input class="btn btn-danger my-2" style="float: right" type="submit" value="Delete">
+    {{ form_end(delete_form) }}
+
+{% endblock %}

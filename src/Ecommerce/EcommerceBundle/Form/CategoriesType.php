@@ -3,12 +3,11 @@
 namespace Ecommerce\EcommerceBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class MediaType extends AbstractType
+class CategoriesType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -16,23 +15,19 @@ class MediaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, array(
+            ->add('nom', TextType::class,array(
                 'attr' => array(
-                    'class' => 'form-control mb-3'
+                    'class' => 'form-control'
                 )
             ))
-            ->add('file', FileType::class, array(
-                'required' => false
-            ));
-    }
-
-    /**
+            ->add('image', MediaType::class);
+    }/**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Ecommerce\EcommerceBundle\Entity\Media'
+            'data_class' => 'Ecommerce\EcommerceBundle\Entity\Categories'
         ));
     }
 
@@ -41,7 +36,7 @@ class MediaType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'ecommerce_ecommercebundle_media';
+        return 'ecommerce_ecommercebundle_categories';
     }
 
 

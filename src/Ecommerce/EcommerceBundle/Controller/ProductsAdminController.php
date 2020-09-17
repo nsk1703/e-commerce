@@ -42,20 +42,6 @@ class ProductsAdminController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-//            $file = $form['image']['file']->getData();
-//            $media = new Media();
-//
-//            $imageProduct = md5(uniqid()).'.'.$file->guessExtension();
-//            $file->move($this->getParameter('product_images'), $imageProduct);
-//            $product->setImage($media->setPath('/uploads/'.$imageProduct));
-//
-//            $media->setName($product->getName());
-
-
-//            dump($media);
-//            die();
-
-//            $em->persist($media);
             $em->persist($product);
             $em->flush();
 

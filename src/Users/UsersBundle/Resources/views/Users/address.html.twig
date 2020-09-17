@@ -5,13 +5,15 @@
 {% block body %}
 <h1>User's Address</h1>
     <div class="col-md-12">
-        {{ dump(user) }}
-{#        {% for address in user.userAddress %}#}
-{#        <div class="col-md-4">#}
-{#            <h5>Address {{ loop.index }}:</h5>#}
-{#            {{ address.nom }} {{ address.prenom }}<br>#}
-{#            {{ address.addresse }},<br> {{ address.cp }} {{ address.ville }} {{ address.pays }}#}
-{#        </div><br>#}
-{#        {% endfor %}#}
+{#        {{ dump(user) }}#}
+        {% for address in user.userAddress %}
+        <div class="col-md-4">
+            {# Numere les addresses #}
+            <h5>Address {{ loop.index }}:</h5>
+            {{ address.nom }} {{ address.prenom }}<br>
+            {{ address.addresse }},<br> {{ address.cp }} {{ address.ville }} {{ address.pays }}
+        </div><br>
+        {% endfor %}
     </div>
+    <a class="btn btn-primary my-2" href="{{ path('adminUsers_index') }}">Back</a>
 {% endblock %}
