@@ -22,9 +22,8 @@ class ProductsType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, array(
-                'attr' => array(
-                    'class' => 'form-control'
-                )
+                'attr' => array('class' => 'form-control'),
+                'required' => false
             ))
             ->add('description', TextareaType::class, array(
                 'attr' => array(
