@@ -120,20 +120,21 @@ class CommandeController extends Controller
         $em = $this->getDoctrine()->getManager();
         $commande = $em->getRepository('EcommerceEcommerceBundle:Commande')->find($id);
 
-//        var_dump($commande);
-//        die();
         if (!$commande || $commande->getValidate() == 1)
             throw $this->createNotFoundException('La Commande n\'existe pas');
 
         $commande->setValidate(1);
-        $commande->setReference($this->container->get('setNewReference')->reference()); //Ajout d'un service
+        $commande->setReference($this->container->get('setNewReference')->reference()); //Appel d'un service
         $em->flush();
 
+//        Ouverture et suppression des sessions ouvertes Suite a la validation de la commande
         $session = $request->getSession();
         $session->remove('address');
         $session->remove('basket');
         $session->remove('commande');
 
+//        Envoi de mail de confirmattion de validation de commande par le service sendMailer
+        $this->container->get('sendMailer')->sendMail($commande);
 
         $this->get('session')->getFlashBag()->add('success', 'Votre commande est valide avec succes!');
         return $this->redirect($this->generateUrl('bills'));

@@ -21,13 +21,6 @@ class GetBill
 
     public function returnPDFResponseFromHTML($bill)
     {
-//        $em = $this->getDoctrine()->getManager();
-//        $bill = $em->getRepository('EcommerceEcommerceBundle:Commande')->findOneBy(array(
-//            'users' => $this->getUser(),
-//            'validate' => 1,
-//            'id' => $id
-//        ));
-
 //        set_time_limit(30); uncomment this line according to your needs
 //        If you are not in a controller, retrieve of some way the service container and then retrieve it
         $pdf = $this->container->get("white_october.tcpdf")->create('vertical', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
@@ -35,7 +28,7 @@ class GetBill
 //       if you are in a controlller use :
 //        $pdf = $this->get("white_october.tcpdf")->create('vertical', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
-        $pdf->SetAuthor('MOKOLO');
+        $pdf->SetAuthor('HitechElectronics');
         $pdf->SetTitle(('Bill_'.$bill->getUsers()));
         $pdf->SetSubject('Bill to Paid');
         $pdf->setFontSubsetting(true);

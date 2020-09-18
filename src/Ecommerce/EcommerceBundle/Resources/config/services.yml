@@ -1,5 +1,9 @@
 # Declaration de notre extension twig en Service pour la rendre utilisable
 services:
+    sendMailer:
+      class: Ecommerce\EcommerceBundle\Services\SendMailer
+      arguments: ['@service_container']
+
     setNewBill:
       class: Ecommerce\EcommerceBundle\Services\GetBill
       arguments: ['@service_container']
