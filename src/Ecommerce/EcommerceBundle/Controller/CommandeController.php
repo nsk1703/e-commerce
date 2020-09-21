@@ -135,6 +135,7 @@ class CommandeController extends Controller
 
 //        Envoi de mail de confirmattion de validation de commande par le service sendMailer
         $this->container->get('sendMailer')->sendMail($commande);
+        $this->container->get('setNewBill')->returnPDFResponseFromHTML($commande);
 
         $this->get('session')->getFlashBag()->add('success', 'Votre commande est valide avec succes!');
         return $this->redirect($this->generateUrl('bills'));

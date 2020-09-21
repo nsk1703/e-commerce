@@ -37,7 +37,8 @@ class ProductsAdminController extends Controller
     public function newAction(Request $request)
     {
         $product = new Products();
-        $form = $this->createForm(ProductsType::class, $product);
+//        Prends en compte les validation de groupe 'add' et les validations par defaut
+        $form = $this->createForm(ProductsType::class, $product, array('validation_groups' => array('add', 'default')));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

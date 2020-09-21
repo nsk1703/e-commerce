@@ -26,16 +26,17 @@ class ProductsType extends AbstractType
                 'required' => false
             ))
             ->add('description', TextareaType::class, array(
-                'attr' => array(
-                    'class' => 'form-control'
-                )
+                'attr' => array('class' => 'form-control'),
+                'required' => false
+
             ))
             ->add('price', NumberType::class, array(
-                'attr' => array(
-                    'class' => 'form-control'
-                )
+                'attr' => array('class' => 'form-control'),
+                'required' => false
             ))
-            ->add('available', CheckboxType::class)
+            ->add('available', CheckboxType::class, array(
+                'required' => false
+            ))
             ->add('category', EntityType::class, array(
                         'class' => 'Ecommerce\EcommerceBundle\Entity\Categories',
                         'choice_label' => 'nom',
@@ -44,11 +45,6 @@ class ProductsType extends AbstractType
                         'mapped' => true
             ))
             ->add('image', MediaType::class)
-//            ->add('image',FileType::class, array(
-//                    'data_class' => 'Ecommerce\EcommerceBundle\Entity\Media',
-////                    'label_attr' => array('class': 'CUSTOM_LABEL_CLASS'),
-//                    'mapped' => true
-//            ))
             ->add('tva', EntityType::class, array(
                 'class' => 'Ecommerce\EcommerceBundle\Entity\Tva',
                 'attr' => array('class' => 'form-control'),

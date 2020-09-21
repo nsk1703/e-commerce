@@ -2,7 +2,7 @@
 services:
     sendMailer:
       class: Ecommerce\EcommerceBundle\Services\SendMailer
-      arguments: ['@service_container']
+      arguments: ['@service_container', '@Swift_Mailer']
 
     setNewBill:
       class: Ecommerce\EcommerceBundle\Services\GetBill

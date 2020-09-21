@@ -3,8 +3,6 @@
 
 namespace Ecommerce\EcommerceBundle\Services;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
-
 class GetReference
 {
     private $entityManager;

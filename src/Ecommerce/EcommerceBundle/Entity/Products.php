@@ -26,7 +26,7 @@ class Products
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"default","autre"})
      */
     private $name;
 
@@ -41,6 +41,7 @@ class Products
      * @var float
      *
      * @ORM\Column(name="price", type="float")
+     * @Assert\NotBlank(message="Ce champ est requis")
      */
     private $price;
 
@@ -48,6 +49,7 @@ class Products
      * @var bool
      *
      * @ORM\Column(name="available", type="boolean")
+     * @Assert\NotBlank(message="Ce champ est requis")
      */
     private $available;
 
