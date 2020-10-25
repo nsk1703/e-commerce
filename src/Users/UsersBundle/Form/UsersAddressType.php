@@ -36,7 +36,8 @@ class UsersAddressType extends AbstractType
                                     'placeholder' => 'Address')
                 ))
                 ->add('cp', TextType::class, array(
-                    'attr' => array('class' => 'form-control',
+                    'attr' => array('class' => 'form-control cp',
+                                    'maxlength' => 5,
                                     'placeholder' => 'Postal Code')
                 ))
                 ->add('pays', TextType::class, array(
@@ -44,7 +45,7 @@ class UsersAddressType extends AbstractType
                                     'placeholder' => 'Country')
                 ))
                 ->add('ville', TextType::class, array(
-                    'attr' => array('class' => 'form-control',
+                    'attr' => array('class' => 'form-control ville',
                                     'placeholder' => 'city')
                 ))
                 ->add('complement', null, array(

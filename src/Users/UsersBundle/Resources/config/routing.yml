@@ -1,14 +1,6 @@
-users_users_homepage:
-    path:     /user
-    defaults: { _controller: UsersUsersBundle:Default:index }
-
-bills:
-    path:     /profile/bills
-    defaults: { _controller: UsersUsersBundle:Users:bills }
-
-bill_pdf:
-    path:     /profile/bills/pdf/{id}
-    defaults: { _controller: UsersUsersBundle:Users:billPDF }
+users_users_users:
+    resource: "@UsersUsersBundle/Resources/config/routing/routingUsers.yml"
+    prefix:   /
 
 users_users_adminUsers:
     resource: "@UsersUsersBundle/Resources/config/routing/routingUsersAdmin.yml"

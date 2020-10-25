@@ -121,7 +121,7 @@ class CommandeController extends Controller
         $commande = $em->getRepository('EcommerceEcommerceBundle:Commande')->find($id);
 
         if (!$commande || $commande->getValidate() == 1)
-            throw $this->createNotFoundException('La Commande n\'existe pas');
+            throw  new $this->createNotFoundException('La Commande n\'existe pas');
 
         $commande->setValidate(1);
         $commande->setReference($this->container->get('setNewReference')->reference()); //Appel d'un service
@@ -133,7 +133,8 @@ class CommandeController extends Controller
         $session->remove('basket');
         $session->remove('commande');
 
-//        Envoi de mail de confirmattion de validation de commande par le service sendMailer
+//      Appel des services d'envoi de mail de confirmation de validation de commande par le service sendMailer
+//      et Generation de facture en pdf par le service setNewBill.
         $this->container->get('sendMailer')->sendMail($commande);
         $this->container->get('setNewBill')->returnPDFResponseFromHTML($commande);
 

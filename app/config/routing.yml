@@ -1,5 +1,8 @@
+#_liip_imagine:
+#    resource: "@LiipImagineBundle/Resources/config/routing.yaml"
+
 fos_user:
-    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"  
 
 users_users:
     resource: "@UsersUsersBundle/Resources/config/routing.yml"

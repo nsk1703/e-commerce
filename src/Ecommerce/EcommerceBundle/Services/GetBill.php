@@ -4,7 +4,10 @@
 namespace Ecommerce\EcommerceBundle\Services;
 
 
+use Doctrine\Instantiator\Exception\ExceptionInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Twig\Error\Error;
 
 class GetBill
@@ -14,9 +17,30 @@ class GetBill
      */
     private $container;
 
-    public function __construct(ContainerInterface $container)
+    /**
+     * @var KernelInterface
+     */
+    private $kernel;
+
+    public function __construct(ContainerInterface $container, KernelInterface $kernel)
     {
         $this->container = $container;
+        $this->kernel = $kernel;
+    }
+
+    public function dateDirectory()
+    {
+         $date = new \DateTime();
+         return $date->format('d-m-Y h-i-s');
+
+    }
+
+    public function makeDateDirectory()
+    {
+        $filesystem = new Filesystem();
+//        $projectDir = $this->kernel->getProjectDir();
+        $dir = $this->dateDirectory();
+        $filesystem->mkdir('Billing/'.$dir);
     }
 
     public function returnPDFResponseFromHTML($bill)
@@ -37,21 +61,20 @@ class GetBill
         $pdf->Footer();
         $pdf->AddPage();
 
-        try {
-            $html = $this->container->get('templating')->render('UsersUsersBundle:Default/layout:billPDF.html.twig',
-                array(
-                    'bill' => $bill
-                )
-            );
-        } catch (Error $e) {
-            $e->getMessage();
-        }
+        $html = $this->container->get('templating')->render('UsersUsersBundle:Default/layout:billPDF.html.twig',
+            array(
+                'bill' => $bill
+            )
+        );
+//        $dir = $this->dateDirectory();
+//        $this->makeDateDirectory();
+//        $projectDir = $this->kernel->getProjectDir();
 
-        $filename = 'Bill';
-//
         $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $html, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
-        $pdf->Output($filename.".pdf",'I'); // This will output the PDF as a response directly
+        $pdf->Output($this->kernel->getProjectDir()."/Billing/".$this->dateDirectory()."/Bill".$bill->getReference().".pdf",'F'); // This will output the PDF as a response directly
 
     }
+
+
 
 }

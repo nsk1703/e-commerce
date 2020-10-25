@@ -6,7 +6,7 @@ services:
 
     setNewBill:
       class: Ecommerce\EcommerceBundle\Services\GetBill
-      arguments: ['@service_container']
+      arguments: ['@service_container', '@kernel']
 
     setNewReference:
       class: Ecommerce\EcommerceBundle\Services\GetReference

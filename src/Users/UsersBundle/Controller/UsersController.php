@@ -3,9 +3,26 @@
 namespace Users\UsersBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class UsersController extends Controller
 {
+    public function cityAction($cp)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $cityPostalCode = $em->getRepository('UsersUsersBundle:VillesFranceFree')->findOneBy(array('villeCodePostal' => $cp));
+
+        if ($cityPostalCode)
+        {
+            $city = $cityPostalCode->getVilleNom();
+        }else{
+            $city= 'Aucune Ville';
+        }
+
+        $response = new JsonResponse();
+        return $response->setData(array('city' => $city));
+    }
+
     public function billsAction()
     {
 //        Recuperation des factures pour l'utilisateur courant

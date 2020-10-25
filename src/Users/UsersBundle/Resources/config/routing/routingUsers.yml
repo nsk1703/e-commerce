@@ -1,0 +1,15 @@
+#users_users_homepage:
+#  path:     /user
+#  defaults: { _controller: UsersUsersBundle:Default:index }
+
+city:
+  path: /city/{cp}
+  defaults: { _controller: UsersUsersBundle:Users:city }
+
+bills:
+  path:     /profile/bills
+  defaults: { _controller: UsersUsersBundle:Users:bills }
+
+bill_pdf:
+  path:     /profile/bills/pdf/{id}
+  defaults: { _controller: UsersUsersBundle:Users:billPDF }

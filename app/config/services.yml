@@ -48,3 +48,7 @@ services:
     Pages\PagesBundle\DataFixtures\:
         resource: '../../src/pages/PagesBundle/DataFixtures/'
         tags: ['doctrine.fixture.orm']
+
+    Ecommerce\EcommerceBundle\Command\BillCommand:
+        tags:
+            - { name: 'console.command', command: 'ecommerce:billing' }

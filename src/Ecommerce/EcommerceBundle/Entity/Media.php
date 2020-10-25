@@ -45,7 +45,7 @@ class Media
      */
     private $updateAt;
 
-    private $file;
+    public $file;
     /**
      * @var string
      */
